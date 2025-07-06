@@ -1,0 +1,50 @@
+{
+  "name": "crypto-exchange-mcp",
+  "version": "1.0.0",
+  "type": "module",
+  "bin": {
+    "crypto-exchange-mcp": "./dist/index.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "npx simple-git-hooks",
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "test": "vitest run",
+    "generateGateOfflineData": "tsx ./src/adaptor/gate/generateOfflineData.ts",
+    "postinstall": "chmod +x ./dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/inspector": "~0.13.0",
+    "@modelcontextprotocol/sdk": "^1.8.0",
+    "cheerio": "^1.0.0",
+    "fs-extra": "^11.3.0",
+    "ts-morph": "^26.0.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@rslib/core": "^0.8.0",
+    "@types/node": "17.0.40",
+    "gateio-api": "^1.1.9",
+    "prettier": "^3.5.3",
+    "pretty-quick": "^4.2.2",
+    "simple-git-hooks": "^2.13.0",
+    "tsx": "^4.19.4",
+    "typescript": "5.0.4",
+    "vitest": "^3.0.9"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx pretty-quick --staged"
+  }
+}
