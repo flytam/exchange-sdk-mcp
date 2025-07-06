@@ -1,6 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"; // Assuming stdio transport is still desired
 import { registerGateTools } from "./adapter/gate";
+import { registerBybitTools } from "./adapter/bybit";
 
 interface CommandOptions {}
 
@@ -22,6 +23,7 @@ export const startMcpServer = async (options: CommandOptions = {}) => {
   try {
     const server = createMcpServer();
     registerGateTools(server);
+    registerBybitTools(server);
     await connectServer(server);
   } catch (error) {
     console.error("Failed to start  MCP server:", error);

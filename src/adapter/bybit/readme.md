@@ -1,0 +1,2 @@
+- bybit-docs -> https://github.com/bybit-exchange/docs/tree/master/i18n/zh-TW/docusaurus-plugin-content-docs/current
+- https://github.com/tiagosiebler/bybit-api/blob/master/docs/endpointFunctionList.md

@@ -18,11 +18,14 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 
 ## Currently Supported Exchanges
 
-- Gate.io
-- Binance TODO
-- Bitget TODO
-- OKX TODO
-- Bybit TODO
+| Exchange       | Status |
+| -------------- | ------ |
+| Gate.io        | ✅     |
+| Bybit          | ✅     |
+| 币安 (Binance) | TODO   |
+| Bitget         | TODO   |
+| OKX            | TODO   |
+| OKX DEX        | TODO   |
 
 ## Installation
 

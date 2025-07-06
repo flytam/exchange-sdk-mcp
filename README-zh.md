@@ -18,11 +18,14 @@
 
 ## 当前支持的交易所
 
-- Gate.io
-- 币安 (Binance) TODO
-- Bitget TODO
-- OKX TODO
-- Bybit TODO
+| 交易所         | 状态 |
+| -------------- | ---- |
+| Gate.io        | ✅   |
+| Bybit          | ✅   |
+| 币安 (Binance) | TODO |
+| Bitget         | TODO |
+| OKX            | TODO |
+| OKX DEX        | TODO |
 
 ## 安装
 

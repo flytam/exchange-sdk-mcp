@@ -5,7 +5,6 @@ import { z } from "zod";
 
 export class GateAdapter implements ExchangeAdapter {
   async listMethods() {
-    console.log("data", data);
     return Object.keys(data).map((k) => ({
       method: k,
       description: data[k as keyof typeof data]?.methodInfo?.methodComment,
