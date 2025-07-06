@@ -12,6 +12,10 @@
 - 查询特定方法的详细使用信息和文档
 - **离线文档** - 所有文档均为离线数据，无需网络连接
 
+<img width="400" height="200" alt="Image" src="https://github.com/user-attachments/assets/00fc3ea1-2d05-4fcd-ab60-1fa00cf3d87e" />
+
+<img width="400" height="200" alt="Image" src="https://github.com/user-attachments/assets/3296b13d-f10b-471a-8cce-199ddfd0ec9c" />
+
 ## 当前支持的交易所
 
 - Gate.io
