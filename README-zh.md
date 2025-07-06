@@ -1,5 +1,7 @@
 # 加密货币交易所 SDK 文档查询 MCP
 
+[![npm 版本](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
+
 [English](./README.md)
 
 这是一个MCP（Model Context Protocol）服务，用于帮助开发者在开发加密货币交易所API对接时方便地查询文档。

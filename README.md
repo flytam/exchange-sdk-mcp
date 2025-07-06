@@ -1,5 +1,7 @@
 # Crypto Exchange SDK Documentation MCP
 
+[![npm version](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
+
 [中文文档](./README-zh.md)
 
 A Model Context Protocol (MCP) service designed to help developers easily access documentation when integrating with cryptocurrency exchange APIs.
