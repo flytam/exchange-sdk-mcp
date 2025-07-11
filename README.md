@@ -18,14 +18,14 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 
 ## Currently Supported Exchanges
 
-| Exchange       | Status |
-| -------------- | ------ |
-| Gate.io        | ✅     |
-| Bybit          | ✅     |
-| 币安 (Binance) | TODO   |
-| Bitget         | TODO   |
-| OKX            | TODO   |
-| OKX DEX        | TODO   |
+| Exchange                                              | Status |
+| ----------------------------------------------------- | ------ |
+| [Gate.io](https://github.com/tiagosiebler/gateio-api) | ✅     |
+| [Bybit](https://www.npmjs.com/package/bybit-api)      | ✅     |
+| 币安 (Binance)                                        | TODO   |
+| Bitget                                                | TODO   |
+| [OKX](https://www.npmjs.com/package/okx-api)          | ✅     |
+| OKX DEX                                               | TODO   |
 
 ## Installation
 
@@ -50,8 +50,8 @@ npm install -g crypto-exchange-mcp
 
 This MCP service provides the following tools:
 
-1. `Query Gate Exchange SDK supported methods` - Lists all available methods in the Gate exchange SDK
-2. `Query Gate Exchange SDK method usage information` - Retrieves detailed documentation for a specific method
+1. `Query Exchange SDK supported methods` - Lists all available methods in the exchange SDK
+2. `Query Exchange SDK method usage information` - Retrieves detailed documentation for a specific method
 
 ## Architecture
 

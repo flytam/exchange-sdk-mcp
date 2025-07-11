@@ -18,14 +18,14 @@
 
 ## 当前支持的交易所
 
-| 交易所         | 状态 |
-| -------------- | ---- |
-| Gate.io        | ✅   |
-| Bybit          | ✅   |
-| 币安 (Binance) | TODO |
-| Bitget         | TODO |
-| OKX            | TODO |
-| OKX DEX        | TODO |
+| 交易所                                                | 状态 |
+| ----------------------------------------------------- | ---- |
+| [Gate.io](https://github.com/tiagosiebler/gateio-api) | ✅   |
+| [Bybit](https://www.npmjs.com/package/bybit-api)      | ✅   |
+| 币安 (Binance)                                        | TODO |
+| Bitget                                                | TODO |
+| [OKX](https://www.npmjs.com/package/okx-api)          | ✅   |
+| OKX DEX                                               | TODO |
 
 ## 安装
 
@@ -50,8 +50,8 @@ npm install -g crypto-exchange-mcp
 
 该MCP服务提供以下工具：
 
-1. `查询 Gate交易所 SDK 支持的方法` - 列出所有可用的Gate交易所SDK方法
-2. `查询 Gate交易所 SDK 方法的使用信息` - 获取特定方法的详细文档
+1. `查询 交易所 SDK 支持的方法` - 列出所有可用的交易所SDK方法
+2. `查询 交易所 SDK 方法的使用信息` - 获取特定方法的详细文档
 
 ## 架构
 
