@@ -1,6 +1,6 @@
 {
   "name": "crypto-exchange-mcp",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "bin": {
     "crypto-exchange-mcp": "./dist/index.js"
@@ -24,6 +24,7 @@
     "generateGateOfflineData": "tsx ./src/adapter/gate/generateOfflineData.ts",
     "generateBybitOfflineData": "tsx ./src/adapter/bybit/generateOfflineData.ts",
     "generateOkxOfflineData": "tsx ./src/adapter/okx/generateOfflineData.ts",
+    "generateOfflineData": "npm run generateGateOfflineData && npm run generateBybitOfflineData && npm run generateOkxOfflineData",
     "postinstall": "chmod +x ./dist/index.js",
     "prepublishOnly": "npm run build"
   },
@@ -38,6 +39,7 @@
   "devDependencies": {
     "@rslib/core": "^0.8.0",
     "@types/node": "17.0.40",
+    "binance": "^3.0.0",
     "bybit-api": "^4.1.13",
     "gateio-api": "^1.1.9",
     "okx-api": "^2.0.5",

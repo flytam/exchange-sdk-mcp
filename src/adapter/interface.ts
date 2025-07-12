@@ -6,4 +6,5 @@ export interface ExchangeAdapter {
       description?: string;
     }[]
   >;
+  getReadme(): Promise<string>;
 }

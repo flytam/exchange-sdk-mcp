@@ -11,10 +11,28 @@ const __dirname = path.dirname(__filename);
 const gateApiUrl = "https://www.gate.com/docs/developers/apiv4/zh_CN/";
 const methodEndpoint =
   "https://raw.githubusercontent.com/tiagosiebler/gateio-api/refs/heads/master/docs/endpointFunctionList.md";
+const readme =
+  "https://raw.githubusercontent.com/tiagosiebler/gateio-api/refs/heads/master/README.md";
+
+const getReadme = async () => {
+  console.log("Gate: 开始获取README文件...");
+  try {
+    const res = await fetch(readme);
+    const text = await res.text();
+    console.log("Gate: README文件获取成功");
+    return text;
+  } catch (error) {
+    console.error("Gate: 获取README文件失败:", error);
+    throw error;
+  }
+};
 
 export const getMethodEndpointMap = async () => {
+  console.log("Gate: 开始获取方法与端点映射...");
   const res = await fetch(methodEndpoint);
   const text = await res.text();
+  console.log("Gate: 成功获取端点列表文档");
+
   // 可选：裁剪出只包含 Endpoint 表格的部分
   const tableStart = text.indexOf("| Function");
   const tableEnd = text.indexOf("\n\n", tableStart);
@@ -26,53 +44,78 @@ export const getMethodEndpointMap = async () => {
   const rowRegex =
     /^\|\s*\[(\w+)\(\)\]\([^)]+\)\s*\|\s*[^|]*\|\s*(GET|POST|DELETE|PUT|PATCH)\s*\|\s*`([^`]+)`\s*\|/;
 
+  let matchCount = 0;
   for (const line of lines) {
     const match = rowRegex.exec(line);
     if (match) {
       const [, functionName, httpMethod, endpoint] = match;
       map[functionName] = [httpMethod, endpoint];
+      matchCount++;
     }
   }
 
+  console.log(`Gate: 成功解析 ${matchCount} 个方法与端点的映射关系`);
   return map;
 };
 
 export const getEndPointDoc = async () => {
   // 获取当前文件的目录路径
+  console.log("Gate: 开始从HTML文件中提取API端点文档...");
+  const htmlFilePath = path.resolve(__dirname, "./apiHtmlText.html");
 
-  const text = await readFile(
-    path.resolve(__dirname, "./apiHtmlText.html"),
-    "utf-8",
-  );
+  try {
+    const text = await readFile(htmlFilePath, "utf-8");
+    console.log("Gate: 成功读取HTML文件");
 
-  // 加载 HTML 到 cheerio
-  const $ = cheerio.load(text);
+    // 加载 HTML 到 cheerio
+    const $ = cheerio.load(text);
+    console.log("Gate: 成功解析HTML内容");
 
-  const result: Record<string, string> = {};
-  const startMethods = ["GET", "POST", "DELETE", "PUT", "PATCH"];
+    const result: Record<string, string> = {};
+    const startMethods = ["GET", "POST", "DELETE", "PUT", "PATCH"];
 
-  // 遍历每个 content-block__cont 元素
-  $(".content-block__cont").each((_, el) => {
-    const $el = $(el);
+    // 遍历每个 content-block__cont 元素
+    const contentBlocks = $(".content-block__cont");
+    console.log(`Gate: 找到 ${contentBlocks.length} 个内容块进行处理`);
 
-    const codeTags = $el.find("code");
+    let processedCount = 0;
+    contentBlocks.each((index, el) => {
+      const $el = $(el);
+      const codeTags = $el.find("code");
 
-    for (let i = 0; i < codeTags.length; i++) {
-      const codeText = $(codeTags[i]).text().trim();
+      for (let i = 0; i < codeTags.length; i++) {
+        const codeText = $(codeTags[i]).text().trim();
 
-      if (
-        codeText &&
-        startMethods.some((method) => codeText.startsWith(method)) &&
-        codeText.includes("/")
-      ) {
-        const fullText = $el.text().trim();
-        result[codeText] = fullText;
-        break;
+        if (
+          codeText &&
+          startMethods.some((method) => codeText.startsWith(method)) &&
+          codeText.includes("/")
+        ) {
+          const fullText = $el.text().trim();
+          result[codeText] = fullText;
+          processedCount++;
+          break;
+        }
       }
-    }
-  });
 
-  return result;
+      // 每处理50个块输出一次进度
+      if ((index + 1) % 50 === 0) {
+        console.log(
+          `Gate: 已处理 ${index + 1}/${contentBlocks.length} 个内容块...`,
+        );
+      }
+    });
+
+    console.log(`Gate: 成功从HTML文件中提取了 ${processedCount} 个API端点文档`);
+    return result;
+  } catch (error) {
+    console.error(`Gate: 无法读取HTML文件: ${htmlFilePath}`);
+    console.error(
+      `Gate: 请确保您已从Gate API文档网站(${gateApiUrl})下载HTML内容并保存到上述路径`,
+    );
+    console.error(`Gate: 错误详情:`, error);
+    return {}; // 返回空对象，以便程序可以继续运行
+  }
 };
 
 /**
@@ -193,104 +236,175 @@ export const extractMethodMapFromDts = async (): Promise<
     }
   >
 > => {
-  const project = new Project();
-  const sourceFile = project.addSourceFileAtPath(
-    path.resolve("node_modules/gateio-api/dist/mjs/RestClient.d.ts"),
+  console.log("Gate: 开始从.d.ts文件中提取方法定义...");
+  const dtsPath = path.resolve(
+    "node_modules/gateio-api/dist/mjs/RestClient.d.ts",
   );
 
-  const resultMap: Record<string, any> = {};
+  try {
+    const project = new Project();
+    const sourceFile = project.addSourceFileAtPath(dtsPath);
+    console.log(`Gate: 成功加载类型定义文件: ${dtsPath}`);
 
-  sourceFile.getClasses().forEach((cls) => {
-    const className = cls.getName() || "UnknownClass";
+    const resultMap: Record<string, any> = {};
+    const classes = sourceFile.getClasses();
+    console.log(`Gate: 找到 ${classes.length} 个类进行处理`);
 
-    cls.getMethods().forEach((method) => {
-      const methodName = method.getName();
-      const jsDocs = method.getJsDocs();
+    let methodCount = 0;
+    classes.forEach((cls) => {
+      const className = cls.getName() || "UnknownClass";
+      console.log(`Gate: 处理类 ${className}...`);
 
-      const methodComment = jsDocs
-        .map((doc) => doc.getComment())
-        .filter(Boolean)
-        .join("\n");
+      const methods = cls.getMethods();
+      console.log(`Gate: 在类 ${className} 中找到 ${methods.length} 个方法`);
 
-      const params = method.getParameters().map((param) => {
-        const paramName = param.getName();
-        const paramType = param.getType();
-        let paramComment: any = "";
+      methods.forEach((method) => {
+        const methodName = method.getName();
+        const jsDocs = method.getJsDocs();
+
+        const methodComment = jsDocs
+          .map((doc) => doc.getComment())
+          .filter(Boolean)
+          .join("\n");
+
+        const params = method.getParameters().map((param) => {
+          const paramName = param.getName();
+          const paramType = param.getType();
+          let paramComment: any = "";
+
+          jsDocs.forEach((doc) => {
+            doc.getTags().forEach((tag) => {
+              if (
+                tag.getTagName() === "param" &&
+                tag.getText().startsWith(paramName)
+              ) {
+                paramComment = tag.getComment() || "";
+              }
+            });
+          });
+
+          return {
+            name: paramName,
+            type: parseType(paramType),
+            comment: paramComment,
+          };
+        });
+
+        const returnType = method.getReturnType();
+        let returnComment: any = "";
 
         jsDocs.forEach((doc) => {
           doc.getTags().forEach((tag) => {
-            if (
-              tag.getTagName() === "param" &&
-              tag.getText().startsWith(paramName)
-            ) {
-              paramComment = tag.getComment() || "";
+            if (["return", "returns"].includes(tag.getTagName())) {
+              returnComment = tag.getComment() || "";
             }
           });
         });
 
-        return {
-          name: paramName,
-          type: parseType(paramType),
-          comment: paramComment,
+        resultMap[methodName] = {
+          className,
+          methodName,
+          methodComment,
+          params,
+          returnType: parseType(returnType),
+          returnComment,
         };
+        methodCount++;
       });
-
-      const returnType = method.getReturnType();
-      let returnComment: any = "";
-
-      jsDocs.forEach((doc) => {
-        doc.getTags().forEach((tag) => {
-          if (["return", "returns"].includes(tag.getTagName())) {
-            returnComment = tag.getComment() || "";
-          }
-        });
-      });
-
-      resultMap[methodName] = {
-        className,
-        methodName,
-        methodComment,
-        params,
-        returnType: parseType(returnType),
-        returnComment,
-      };
     });
-  });
 
-  return resultMap;
+    console.log(`Gate: 成功从.d.ts文件中提取了 ${methodCount} 个方法定义`);
+    return resultMap;
+  } catch (error) {
+    console.error(`Gate: 处理.d.ts文件时出错: ${dtsPath}`);
+    console.error(`Gate: 错误详情:`, error);
+    throw error; // 重新抛出错误，因为这是关键步骤
+  }
 };
 
 export const generateOfflineData = async () => {
-  const [methodEndpointMap, endPointDocMap, methodDtsInfoMap] =
-    await Promise.all([
-      getMethodEndpointMap(),
-      getEndPointDoc(),
-      extractMethodMapFromDts(),
-    ]);
+  console.log("Gate: 开始生成离线数据...");
+  console.log("Gate: 并行获取所有必要数据...");
 
-  const offlineData: Record<
-    string,
-    {
-      doc: string;
-      methodInfo: any;
-    }
-  > = {};
+  try {
+    const [methodEndpointMap, endPointDocMap, methodDtsInfoMap, readme] =
+      await Promise.all([
+        getMethodEndpointMap(),
+        getEndPointDoc(),
+        extractMethodMapFromDts(),
+        getReadme(),
+      ]);
 
-  Object.keys(methodEndpointMap).forEach((method) => {
-    const [httpMethod, endpoint] = methodEndpointMap[method];
-    const key = `${httpMethod} ${endpoint}`;
-    offlineData[method] = {
-      doc: endPointDocMap[key],
-      methodInfo: methodDtsInfoMap[method],
+    console.log("Gate: 所有数据获取完成，开始整合数据...");
+    console.log(
+      `Gate: 方法端点映射: ${Object.keys(methodEndpointMap).length} 个方法`,
+    );
+    console.log(`Gate: 端点文档: ${Object.keys(endPointDocMap).length} 个文档`);
+    console.log(
+      `Gate: 方法定义: ${Object.keys(methodDtsInfoMap).length} 个方法`,
+    );
+    console.log("Gate: README 获取成功");
+
+    const offlineData: {
+      methods: Record<
+        string,
+        {
+          doc: string;
+          methodInfo: any;
+        }
+      >;
+      readme: string;
+      example: string[];
+    } = {
+      methods: {},
+      readme: readme,
+      example: [],
     };
-  });
 
-  return offlineData;
+    let matchedDocs = 0;
+    let missingDocs = 0;
+
+    Object.keys(methodEndpointMap).forEach((method) => {
+      const [httpMethod, endpoint] = methodEndpointMap[method];
+      const key = `${httpMethod} ${endpoint}`;
+      const hasDoc = !!endPointDocMap[key];
+
+      offlineData.methods[method] = {
+        doc: endPointDocMap[key] || "",
+        methodInfo: methodDtsInfoMap[method],
+      };
+
+      if (hasDoc) {
+        matchedDocs++;
+      } else {
+        missingDocs++;
+      }
+    });
+
+    console.log(`Gate: 数据整合完成:`);
+    console.log(`Gate: - 成功匹配文档的方法: ${matchedDocs} 个`);
+    console.log(`Gate: - 缺少文档的方法: ${missingDocs} 个`);
+    console.log(
+      `Gate: - 总方法数: ${Object.keys(offlineData.methods).length} 个`,
+    );
+
+    return offlineData;
+  } catch (error) {
+    console.error("Gate: 生成离线数据时出错:", error);
+    throw error;
+  }
 };
 
-generateOfflineData().then((res) => {
-  writeFileSync(
-    path.join(__dirname, "./gate-offlineData.json"),
-    JSON.stringify(res, null, 2),
-  );
-});
+console.log("Gate: 开始执行离线数据生成流程...");
+generateOfflineData()
+  .then((res) => {
+    const outputPath = path.join(__dirname, "./gate-offlineData.json");
+    writeFileSync(outputPath, JSON.stringify(res, null, 2));
+    console.log(`Gate: 离线数据已成功生成并保存到: ${outputPath}`);
+    console.log(
+      `Gate: 数据大小: ${(JSON.stringify(res).length / 1024).toFixed(2)} KB`,
+    );
+  })
+  .catch((error) => {
+    console.error("Gate: 生成离线数据失败:", error);
+  });

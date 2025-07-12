@@ -1,10 +1,11 @@
 # Crypto Exchange SDK Documentation MCP
 
 [![npm version](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
 
 [中文文档](./README-zh.md)
 
-A Model Context Protocol (MCP) service designed to help developers easily access documentation when integrating with cryptocurrency exchange APIs.
+A Model Context Protocol (MCP) service designed to help developers easily access documentation when integrating with cryptocurrency exchange APIs. This tool provides comprehensive offline documentation for multiple cryptocurrency exchanges, making it convenient to query API methods and usage information without requiring an internet connection.
 
 ## Features
 
@@ -18,20 +19,14 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 
 ## Currently Supported Exchanges
 
-| Exchange                                              | Status |
-| ----------------------------------------------------- | ------ |
-| [Gate.io](https://github.com/tiagosiebler/gateio-api) | ✅     |
-| [Bybit](https://www.npmjs.com/package/bybit-api)      | ✅     |
-| 币安 (Binance)                                        | TODO   |
-| Bitget                                                | TODO   |
-| [OKX](https://www.npmjs.com/package/okx-api)          | ✅     |
-| OKX DEX                                               | TODO   |
-
-## Installation
-
-```bash
-npm install -g crypto-exchange-mcp
-```
+| Exchange                                            | Status |
+| --------------------------------------------------- | ------ |
+| [Gate.io](https://www.npmjs.com/package/gateio-api) | ✅     |
+| [Bybit](https://www.npmjs.com/package/bybit-api)    | ✅     |
+| Binance                                             | TODO   |
+| Bitget                                              | TODO   |
+| [OKX](https://www.npmjs.com/package/okx-api)        | ✅     |
+| OKX DEX                                             | TODO   |
 
 ## Configuration
 
@@ -50,12 +45,13 @@ npm install -g crypto-exchange-mcp
 
 This MCP service provides the following tools:
 
-1. `Query Exchange SDK supported methods` - Lists all available methods in the exchange SDK
-2. `Query Exchange SDK method usage information` - Retrieves detailed documentation for a specific method
+1. `Query Exchange SDK supported methods` - Lists all available methods for the exchange SDK
+2. `Query Exchange SDK method usage information` - Gets detailed documentation for a specific method
+3. `Query Exchange SDK README` - Gets the README content of the exchange SDK project
 
 ## Architecture
 
-The service is designed with extensibility in mind, allowing for easy addition of new exchanges in the future. Each exchange is implemented as an adapter that conforms to a common interface, making it simple to add support for additional exchanges.
+The service is designed with extensibility in mind, making it easy to add support for new exchanges in the future. Each exchange is implemented as an adapter following a common interface, making it simple to add support for new exchanges.
 
 ## Development
 
@@ -71,6 +67,9 @@ pnpm run dev
 
 # Test with MCP inspector
 pnpm run inspect
+
+# Generate offline data for exchanges
+pnpm run generateOfflineData
 ```
 
 ## Contributing

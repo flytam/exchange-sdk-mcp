@@ -5,14 +5,20 @@ import { z } from "zod";
 
 export class GateAdapter implements ExchangeAdapter {
   async listMethods() {
-    return Object.keys(data).map((k) => ({
+    return Object.keys(data.methods).map((k) => ({
       method: k,
-      description: data[k as keyof typeof data]?.methodInfo?.methodComment,
+      description:
+        // @ts-ignore
+        data.methods[k as keyof typeof data.methods]?.methodInfo?.methodComment,
     }));
   }
 
   async getDoc(method: string) {
-    return data[method as keyof typeof data];
+    return data.methods[method as keyof typeof data.methods];
+  }
+
+  async getReadme(): Promise<string> {
+    return data.readme;
   }
 }
 
@@ -47,6 +53,17 @@ export const registerGateTools = (server: McpServer) => {
       };
     },
   );
+
+  server.tool("查询 Gate交易所 SDK 项目的 README", async () => {
+    return {
+      content: [
+        {
+          text: await gateService.getReadme(),
+          type: "text",
+        },
+      ],
+    };
+  });
 
   return server;
 };

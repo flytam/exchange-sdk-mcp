@@ -39,10 +39,12 @@ export const getMethodEndpointMap = async () => {
 
 export const getEndPointDoc = async () => {
   // 获取当前文件的目录路径
+  console.log("OKX: 开始从HTML文件中提取API端点文档...");
   const htmlFilePath = path.resolve(__dirname, "./apiHtmlText.html");
 
   try {
     const text = await readFile(htmlFilePath, "utf-8");
+    console.log("OKX: 成功读取HTML文件");
 
     // 加载 HTML 到 cheerio
     const $ = cheerio.load(text);
@@ -52,17 +54,20 @@ export const getEndPointDoc = async () => {
 
     // 查找所有h3标签，作为分块的起始点
     const h3Elements = $("h3");
-    console.log(`找到${h3Elements.length}个h3标签作为分块起始点`);
+    console.log(`OKX: 找到${h3Elements.length}个h3标签作为分块起始点`);
 
     // 遍历每个h3元素
+    let successfulExtractions = 0;
     h3Elements.each((index, h3Element) => {
       const $h3 = $(h3Element);
       const h3Text = $h3.text().trim();
       let blockContent = h3Text; // 开始收集块内容，从h3标题开始
 
-      console.log(
-        `处理第${index + 1}个h3块: ${h3Text.substring(0, 50)}${h3Text.length > 50 ? "..." : ""}`,
-      );
+      if (index % 20 === 0) {
+        console.log(
+          `OKX: 正在处理第${index + 1}/${h3Elements.length}个h3块...`,
+        );
+      }
 
       // 获取h3后面的所有元素，直到下一个h3
       let nextElement = $h3.next();
@@ -82,7 +87,7 @@ export const getEndPointDoc = async () => {
           "i",
         );
         let match = elementText.match(apiEndpointRegex1);
-        if (match) console.log("方法1匹配成功:", match[0]);
+        if (match) console.log("OKX: 方法1匹配成功:", match[0]);
 
         // 方法2: 匹配可能带有代码格式的端点
         // 例如: `GET /api/v5/market/tickers`
@@ -92,7 +97,7 @@ export const getEndPointDoc = async () => {
             "i",
           );
           match = elementText.match(apiEndpointRegex2);
-          if (match) console.log("方法2匹配成功:", match[0]);
+          if (match) console.log("OKX: 方法2匹配成功:", match[0]);
         }
 
         // 方法3: 匹配可能带有其他格式的端点
@@ -103,7 +108,7 @@ export const getEndPointDoc = async () => {
             "i",
           );
           match = elementText.match(apiEndpointRegex3);
-          if (match) console.log("方法3匹配成功:", match[0]);
+          if (match) console.log("OKX: 方法3匹配成功:", match[0]);
         }
 
         // 方法4: 直接搜索文本中的API路径
@@ -134,7 +139,7 @@ export const getEndPointDoc = async () => {
                 }
 
                 const endpoint = elementText.substring(apiIndex, endIndex);
-                console.log("尝试提取路径:", endpoint);
+                console.log("OKX: 尝试提取路径:", endpoint);
 
                 if (endpoint.length > 8) {
                   // 确保路径长度合理
@@ -144,7 +149,7 @@ export const getEndPointDoc = async () => {
                     method, // 方法
                     endpoint, // 端点
                   ];
-                  console.log("方法4匹配成功:", match[0]);
+                  console.log("OKX: 方法4匹配成功:", match[0]);
                   break;
                 }
               }
@@ -163,7 +168,7 @@ export const getEndPointDoc = async () => {
               endpoint = match[2];
             } else if (match.length === 2) {
               // 可能是自定义匹配结果
-              console.log("警告: 匹配结果格式异常，尝试使用备选逻辑");
+              console.log("OKX: 警告: 匹配结果格式异常，尝试使用备选逻辑");
               const parts = match[0].split(/\s+/);
               if (parts.length >= 2) {
                 httpMethod = parts[0];
@@ -184,13 +189,13 @@ export const getEndPointDoc = async () => {
 
               // 验证HTTP方法是否有效
               if (!startMethods.includes(httpMethod.toUpperCase())) {
-                console.log(`警告: 无效的HTTP方法 ${httpMethod}，跳过`);
+                console.log(`OKX: 警告: 无效的HTTP方法 ${httpMethod}，跳过`);
                 isValid = false;
               }
 
               // 验证端点是否有效
               if (isValid && !endpoint.startsWith("/api/")) {
-                console.log(`警告: 无效的端点 ${endpoint}，跳过`);
+                console.log(`OKX: 警告: 无效的端点 ${endpoint}，跳过`);
                 isValid = false;
               }
 
@@ -201,14 +206,15 @@ export const getEndPointDoc = async () => {
                 // 如果已经存在相同的键，检查哪个内容更完整
                 if (!result[key] || blockContent.length > result[key].length) {
                   result[key] = blockContent;
-                  console.log(`成功提取到API端点: ${key}`);
+                  successfulExtractions++;
+                  console.log(`OKX: 成功提取到API端点: ${key}`);
                 }
               }
             } else {
-              console.log("警告: 无法从匹配结果中提取HTTP方法和端点");
+              console.log("OKX: 警告: 无法从匹配结果中提取HTTP方法和端点");
             }
           } catch (error) {
-            console.error("处理匹配结果时出错:", error);
+            console.error("OKX: 处理匹配结果时出错:", error);
           }
         }
 
@@ -216,16 +222,17 @@ export const getEndPointDoc = async () => {
       }
     });
 
-    console.log(
-      `成功从HTML文件中提取了${Object.keys(result).length}个API端点文档`,
-    );
+    console.log(`OKX: 文档处理完成:`);
+    console.log(`OKX: - 处理的h3块总数: ${h3Elements.length} 个`);
+    console.log(`OKX: - 成功提取的API端点: ${successfulExtractions} 个`);
+    console.log(`OKX: - 最终提取的唯一端点: ${Object.keys(result).length} 个`);
     return result;
   } catch (error) {
-    console.error(`无法读取HTML文件: ${htmlFilePath}`);
+    console.error(`OKX: 无法读取HTML文件: ${htmlFilePath}`);
     console.error(
-      `请确保您已从OKX API文档网站(${okxApiUrl})下载HTML内容并保存到上述路径`,
+      `OKX: 请确保您已从OKX API文档网站(${okxApiUrl})下载HTML内容并保存到上述路径`,
     );
-    console.error(`错误详情:`, error);
+    console.error(`OKX: 错误详情:`, error);
     return {}; // 返回空对象，以便程序可以继续运行
   }
 };
@@ -351,6 +358,21 @@ function parseType(type: Type, visited = new Set<string>()): any {
   };
 }
 
+const readme =
+  "https://raw.githubusercontent.com/tiagosiebler/okx-api/refs/heads/master/README.md";
+const getReadme = async () => {
+  console.log("OKX: 开始获取README文件...");
+  try {
+    const res = await fetch(readme);
+    const text = await res.text();
+    console.log("OKX: README文件获取成功");
+    return text;
+  } catch (error) {
+    console.error("OKX: 获取README文件失败:", error);
+    throw error;
+  }
+};
+
 /**
  * 提取方法定义并返回 map，key 为 methodName，value 为对应结构体
  */
@@ -367,38 +389,72 @@ export const extractMethodMapFromDts = async (): Promise<
     }
   >
 > => {
-  const project = new Project();
-  const sourceFile = project.addSourceFileAtPath(
-    path.resolve("node_modules/okx-api/lib/rest-client.d.ts"),
-  );
+  console.log("OKX: 开始从.d.ts文件中提取方法定义...");
+  const dtsPath = path.resolve("node_modules/okx-api/lib/rest-client.d.ts");
 
-  const resultMap: Record<string, any> = {};
+  try {
+    const project = new Project();
+    const sourceFile = project.addSourceFileAtPath(dtsPath);
+    console.log(`OKX: 成功加载类型定义文件: ${dtsPath}`);
 
-  sourceFile.getClasses().forEach((cls) => {
-    const className = cls.getName() || "UnknownClass";
+    const resultMap: Record<string, any> = {};
+    const classes = sourceFile.getClasses();
+    console.log(`OKX: 找到 ${classes.length} 个类进行处理`);
 
-    cls.getMethods().forEach((method) => {
-      const methodName = method.getName();
-      const jsDocs = method.getJsDocs();
+    let methodCount = 0;
+    classes.forEach((cls) => {
+      const className = cls.getName() || "UnknownClass";
+      console.log(`OKX: 处理类 ${className}...`);
 
-      const methodComment = jsDocs
-        .map((doc) => doc.getComment())
-        .filter(Boolean)
-        .join("\n");
+      const methods = cls.getMethods();
+      console.log(`OKX: 在类 ${className} 中找到 ${methods.length} 个方法`);
 
-      const params = method.getParameters().map((param) => {
-        const paramName = param.getName();
-        const paramType = param.getType();
-        let paramComment = "";
+      methods.forEach((method) => {
+        const methodName = method.getName();
+        const jsDocs = method.getJsDocs();
+
+        const methodComment = jsDocs
+          .map((doc) => doc.getComment())
+          .filter(Boolean)
+          .join("\n");
+
+        const params = method.getParameters().map((param) => {
+          const paramName = param.getName();
+          const paramType = param.getType();
+          let paramComment = "";
+
+          jsDocs.forEach((doc) => {
+            doc.getTags().forEach((tag) => {
+              if (
+                tag.getTagName() === "param" &&
+                tag.getText().startsWith(paramName)
+              ) {
+                const comment = tag.getComment();
+                paramComment =
+                  typeof comment === "string"
+                    ? comment
+                    : Array.isArray(comment)
+                      ? comment.map((c) => c?.getText?.() || "").join("")
+                      : "";
+              }
+            });
+          });
+
+          return {
+            name: paramName,
+            type: parseType(paramType),
+            comment: paramComment,
+          };
+        });
+
+        const returnType = method.getReturnType();
+        let returnComment = "";
 
         jsDocs.forEach((doc) => {
           doc.getTags().forEach((tag) => {
-            if (
-              tag.getTagName() === "param" &&
-              tag.getText().startsWith(paramName)
-            ) {
+            if (["return", "returns"].includes(tag.getTagName())) {
               const comment = tag.getComment();
-              paramComment =
+              returnComment =
                 typeof comment === "string"
                   ? comment
                   : Array.isArray(comment)
@@ -408,76 +464,110 @@ export const extractMethodMapFromDts = async (): Promise<
           });
         });
 
-        return {
-          name: paramName,
-          type: parseType(paramType),
-          comment: paramComment,
+        resultMap[methodName] = {
+          className,
+          methodName,
+          methodComment,
+          params,
+          returnType: parseType(returnType),
+          returnComment,
         };
+        methodCount++;
       });
-
-      const returnType = method.getReturnType();
-      let returnComment = "";
-
-      jsDocs.forEach((doc) => {
-        doc.getTags().forEach((tag) => {
-          if (["return", "returns"].includes(tag.getTagName())) {
-            const comment = tag.getComment();
-            returnComment =
-              typeof comment === "string"
-                ? comment
-                : Array.isArray(comment)
-                  ? comment.map((c) => c?.getText?.() || "").join("")
-                  : "";
-          }
-        });
-      });
-
-      resultMap[methodName] = {
-        className,
-        methodName,
-        methodComment,
-        params,
-        returnType: parseType(returnType),
-        returnComment,
-      };
     });
-  });
 
-  return resultMap;
+    console.log(`OKX: 成功从.d.ts文件中提取了 ${methodCount} 个方法定义`);
+    return resultMap;
+  } catch (error) {
+    console.error(`OKX: 处理.d.ts文件时出错: ${dtsPath}`);
+    console.error(`OKX: 错误详情:`, error);
+    throw error; // 重新抛出错误，因为这是关键步骤
+  }
 };
 
 export const generateOfflineData = async () => {
-  const [methodEndpointMap, endPointDocMap, methodDtsInfoMap] =
-    await Promise.all([
-      getMethodEndpointMap(),
-      getEndPointDoc(),
-      extractMethodMapFromDts(),
-    ]);
+  console.log("OKX: 开始生成离线数据...");
+  console.log("OKX: 并行获取所有必要数据...");
 
-  const offlineData: Record<
-    string,
-    {
-      doc: string;
-      methodInfo: any;
-    }
-  > = {};
+  try {
+    const [methodEndpointMap, endPointDocMap, methodDtsInfoMap, readme] =
+      await Promise.all([
+        getMethodEndpointMap(),
+        getEndPointDoc(),
+        extractMethodMapFromDts(),
+        getReadme(),
+      ]);
 
-  Object.keys(methodEndpointMap).forEach((method) => {
-    const [httpMethod, endpoint] = methodEndpointMap[method];
-    const key = `${httpMethod} ${endpoint}`;
-    offlineData[method] = {
-      doc: endPointDocMap[key],
-      methodInfo: methodDtsInfoMap[method],
+    console.log("OKX: 所有数据获取完成，开始整合数据...");
+    console.log(
+      `OKX: 方法端点映射: ${Object.keys(methodEndpointMap).length} 个方法`,
+    );
+    console.log(`OKX: 端点文档: ${Object.keys(endPointDocMap).length} 个文档`);
+    console.log(
+      `OKX: 方法定义: ${Object.keys(methodDtsInfoMap).length} 个方法`,
+    );
+    console.log("OKX: README 获取成功");
+
+    const offlineData: {
+      methods: Record<
+        string,
+        {
+          doc: string;
+          methodInfo: any;
+        }
+      >;
+      readme: string;
+      example: string[];
+    } = {
+      methods: {},
+      readme: readme,
+      example: [],
     };
-  });
 
-  return offlineData;
+    let matchedDocs = 0;
+    let missingDocs = 0;
+
+    Object.keys(methodEndpointMap).forEach((method) => {
+      const [httpMethod, endpoint] = methodEndpointMap[method];
+      const key = `${httpMethod} ${endpoint}`;
+      const hasDoc = !!endPointDocMap[key];
+
+      offlineData.methods[method] = {
+        doc: endPointDocMap[key] || "",
+        methodInfo: methodDtsInfoMap[method],
+      };
+
+      if (hasDoc) {
+        matchedDocs++;
+      } else {
+        missingDocs++;
+      }
+    });
+
+    console.log(`OKX: 数据整合完成:`);
+    console.log(`OKX: - 成功匹配文档的方法: ${matchedDocs} 个`);
+    console.log(`OKX: - 缺少文档的方法: ${missingDocs} 个`);
+    console.log(
+      `OKX: - 总方法数: ${Object.keys(offlineData.methods).length} 个`,
+    );
+
+    return offlineData;
+  } catch (error) {
+    console.error("OKX: 生成离线数据时出错:", error);
+    throw error;
+  }
 };
 
-generateOfflineData().then((res) => {
-  writeFileSync(
-    path.join(__dirname, "./okx-offlineData.json"),
-    JSON.stringify(res, null, 2),
-  );
-  console.log("OKX offline data generated successfully!");
-});
+console.log("OKX: 开始执行离线数据生成流程...");
+generateOfflineData()
+  .then((res) => {
+    const outputPath = path.join(__dirname, "./okx-offlineData.json");
+    writeFileSync(outputPath, JSON.stringify(res, null, 2));
+    console.log(`OKX: 离线数据已成功生成并保存到: ${outputPath}`);
+    console.log(
+      `OKX: 数据大小: ${(JSON.stringify(res).length / 1024).toFixed(2)} KB`,
+    );
+  })
+  .catch((error) => {
+    console.error("OKX: 生成离线数据失败:", error);
+  });

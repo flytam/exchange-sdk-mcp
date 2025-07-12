@@ -1,10 +1,11 @@
 # 加密货币交易所 SDK 文档查询 MCP
 
 [![npm 版本](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
+[![版本](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
 
 [English](./README.md)
 
-这是一个MCP（Model Context Protocol）服务，用于帮助开发者在开发加密货币交易所API对接时方便地查询文档。
+这是一个MCP（Model Context Protocol）服务，用于帮助开发者在开发加密货币交易所API对接时方便地查询文档。该工具提供多个加密货币交易所的全面离线文档，使开发者能够在没有网络连接的情况下方便地查询API方法和使用信息。
 
 ## 功能
 
@@ -18,20 +19,14 @@
 
 ## 当前支持的交易所
 
-| 交易所                                                | 状态 |
-| ----------------------------------------------------- | ---- |
-| [Gate.io](https://github.com/tiagosiebler/gateio-api) | ✅   |
-| [Bybit](https://www.npmjs.com/package/bybit-api)      | ✅   |
-| 币安 (Binance)                                        | TODO |
-| Bitget                                                | TODO |
-| [OKX](https://www.npmjs.com/package/okx-api)          | ✅   |
-| OKX DEX                                               | TODO |
-
-## 安装
-
-```bash
-npm install -g crypto-exchange-mcp
-```
+| 交易所                                              | 状态 |
+| --------------------------------------------------- | ---- |
+| [Gate.io](https://www.npmjs.com/package/gateio-api) | ✅   |
+| [Bybit](https://www.npmjs.com/package/bybit-api)    | ✅   |
+| 币安 (Binance)                                      | TODO |
+| Bitget                                              | TODO |
+| [OKX](https://www.npmjs.com/package/okx-api)        | ✅   |
+| OKX DEX                                             | TODO |
 
 ## 配置
 
@@ -52,6 +47,7 @@ npm install -g crypto-exchange-mcp
 
 1. `查询 交易所 SDK 支持的方法` - 列出所有可用的交易所SDK方法
 2. `查询 交易所 SDK 方法的使用信息` - 获取特定方法的详细文档
+3. `查询 交易所 SDK 项目的 README` - 获取交易所SDK项目的README内容
 
 ## 架构
 
@@ -71,6 +67,9 @@ pnpm run dev
 
 # 使用MCP检查器测试
 pnpm run inspect
+
+# 生成交易所离线数据
+pnpm run generateOfflineData
 ```
 
 ## 贡献

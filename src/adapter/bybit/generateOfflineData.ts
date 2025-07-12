@@ -161,6 +161,15 @@ function parseType(type: Type, visited = new Set<string>()): any {
 const methodEndpoint =
   "https://raw.githubusercontent.com/tiagosiebler/bybit-api/refs/heads/master/docs/endpointFunctionList.md";
 
+const readme =
+  "https://raw.githubusercontent.com/tiagosiebler/bybit-api/refs/heads/master/README.md";
+
+const getReadme = async () => {
+  const res = await fetch(readme);
+  const text = await res.text();
+  return text;
+};
+
 export const getMethodEndpointMap = async () => {
   const res = await fetch(methodEndpoint);
   const text = await res.text();
@@ -202,22 +211,31 @@ export const extractMethodMapFromDts = async (): Promise<
     }
   >
 > => {
-  const project = new Project();
-  const sourceFile = project.addSourceFileAtPath(
-    path.resolve("node_modules/bybit-api/lib/rest-client-v5.d.ts"),
+  console.log("Bybit: 开始从.d.ts文件中提取方法定义...");
+  const dtsPath = path.resolve(
+    "node_modules/bybit-api/lib/rest-client-v5.d.ts",
   );
+  console.log(`Bybit: 使用类型定义文件: ${dtsPath}`);
+
+  const project = new Project();
+  const sourceFile = project.addSourceFileAtPath(dtsPath);
 
   const resultMap: Record<string, any> = {};
 
   // 查找 RestClientV5 类
   const classes = sourceFile.getClasses();
+  console.log(`Bybit: 找到 ${classes.length} 个类进行处理`);
+
+  let methodCount = 0;
   for (const classDeclaration of classes) {
     const className = classDeclaration.getName() || "";
 
     // 只处理 RestClientV5 类
     if (className === "RestClientV5") {
+      console.log(`Bybit: 处理 RestClientV5 类...`);
       // 获取类中的所有方法
       const methods = classDeclaration.getMethods();
+      console.log(`Bybit: 在 RestClientV5 类中找到 ${methods.length} 个方法`);
 
       for (const method of methods) {
         const methodName = method.getName();
@@ -298,10 +316,12 @@ export const extractMethodMapFromDts = async (): Promise<
           returnType: parseType(returnType),
           returnComment,
         };
+        methodCount++;
       }
     }
   }
 
+  console.log(`Bybit: 成功从.d.ts文件中提取了 ${methodCount} 个方法定义`);
   return resultMap;
 };
 
@@ -310,12 +330,15 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const getEndPointDoc = async () => {
+  console.log("Bybit: 开始从文档中提取API端点文档...");
   const result: Record<string, string> = {};
   const docsDir = path.resolve(__dirname, "./bybit-docs/v5");
+  console.log(`Bybit: 使用文档目录: ${docsDir}`);
 
   // 递归遍历目录，查找所有 .mdx 文件
   const findMdxFiles = async (dir: string): Promise<string[]> => {
     const entries = await readdir(dir, { withFileTypes: true });
+    console.log(`Bybit: 在目录 ${dir} 中找到 ${entries.length} 个条目`);
     const files = await Promise.all(
       entries.map(async (entry) => {
         const fullPath = path.join(dir, entry.name);
@@ -367,21 +390,37 @@ export const getEndPointDoc = async () => {
   try {
     // 获取所有 .mdx 文件
     const mdxFiles = await findMdxFiles(docsDir);
+    console.log(`Bybit: 找到 ${mdxFiles.length} 个.mdx文档文件`);
+
+    let processedFiles = 0;
+    let extractedMethods = 0;
 
     // 处理每个文件
     for (const filePath of mdxFiles) {
       try {
+        processedFiles++;
+        if (processedFiles % 10 === 0) {
+          console.log(
+            `Bybit: 已处理 ${processedFiles}/${mdxFiles.length} 个文档文件...`,
+          );
+        }
+
         const content = await readFile(filePath, "utf-8");
         const methodInfos = extractMethodInfo(content);
 
         // 将提取的方法信息添加到结果中
         for (const [methodName, docContent] of methodInfos) {
           result[methodName] = docContent;
+          extractedMethods++;
         }
       } catch (error) {
         console.error(`Error processing file ${filePath}:`, error);
       }
     }
+
+    console.log(
+      `Bybit: 文档处理完成，共处理了 ${processedFiles} 个文件，提取了 ${extractedMethods} 个方法的文档`,
+    );
   } catch (error) {
     console.error("Error reading docs directory:", error);
   }
@@ -393,6 +432,9 @@ export const getEndPointDoc = async () => {
 // getEndPointDoc();
 
 export const generateOfflineData = async () => {
+  console.log("Bybit: 开始生成离线数据...");
+  console.log("Bybit: 并行获取所有必要数据...");
+
   const [methodEndpointMap, endPointDocMap, methodDtsInfoMap] =
     await Promise.all([
       getMethodEndpointMap(),
@@ -400,37 +442,72 @@ export const generateOfflineData = async () => {
       extractMethodMapFromDts(),
     ]);
 
-  // 调试输出，查看 endPointDocMap 的键
+  console.log("Bybit: 所有数据获取完成，开始整合数据...");
+  console.log(
+    `Bybit: 方法端点映射: ${Object.keys(methodEndpointMap).length} 个方法`,
+  );
+  console.log(`Bybit: 端点文档: ${Object.keys(endPointDocMap).length} 个文档`);
+  console.log(
+    `Bybit: 方法定义: ${Object.keys(methodDtsInfoMap).length} 个方法`,
+  );
 
-  const offlineData: Record<
-    string,
-    {
-      doc: string;
-      methodInfo: any;
-    }
-  > = {};
+  const offlineData: {
+    methods: Record<
+      string,
+      {
+        doc: string;
+        methodInfo: any;
+      }
+    >;
+    readme: string;
+    example: string[];
+  } = {
+    methods: {},
+    readme: readme,
+    example: [],
+  };
+
+  let matchedDocs = 0;
+  let missingDocs = 0;
 
   Object.keys(methodDtsInfoMap).forEach((method) => {
     // const [httpMethod, endpoint] = methodEndpointMap[method];
     // const key = `${httpMethod} ${endpoint}`;
-    offlineData[method] = {
+    const hasDoc = !!endPointDocMap[method];
+
+    offlineData.methods[method] = {
       doc: endPointDocMap[method] || "", // 使用方法名作为键，而不是 HTTP 方法和端点
       methodInfo: methodDtsInfoMap[method],
     };
+
+    if (hasDoc) {
+      matchedDocs++;
+    } else {
+      missingDocs++;
+    }
   });
+
+  console.log(`Bybit: 数据整合完成:`);
+  console.log(`Bybit: - 成功匹配文档的方法: ${matchedDocs} 个`);
+  console.log(`Bybit: - 缺少文档的方法: ${missingDocs} 个`);
+  console.log(
+    `Bybit: - 总方法数: ${Object.keys(offlineData.methods).length} 个`,
+  );
 
   return offlineData;
 };
 
 // 执行生成离线数据并写入文件
+console.log("Bybit: 开始执行离线数据生成流程...");
 generateOfflineData()
   .then((res) => {
-    writeFileSync(
-      path.join(__dirname, "./bybit-offlineData.json"),
-      JSON.stringify(res, null, 2),
+    const outputPath = path.join(__dirname, "./bybit-offlineData.json");
+    writeFileSync(outputPath, JSON.stringify(res, null, 2));
+    console.log(`Bybit: 离线数据已成功生成并保存到: ${outputPath}`);
+    console.log(
+      `Bybit: 数据大小: ${(JSON.stringify(res).length / 1024).toFixed(2)} KB`,
     );
-    console.log("Bybit offline data generated successfully!");
   })
   .catch((error) => {
-    console.error("Error generating Bybit offline data:", error);
+    console.error("Bybit: 生成离线数据失败:", error);
   });

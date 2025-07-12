@@ -5,14 +5,19 @@ import { z } from "zod";
 
 export class OkxAdapter implements ExchangeAdapter {
   async listMethods() {
-    return Object.keys(data).map((k) => ({
+    return Object.keys(data.methods).map((k) => ({
       method: k,
-      description: data[k as keyof typeof data]?.methodInfo?.methodComment,
+      description:
+        data.methods[k as keyof typeof data.methods]?.methodInfo?.methodComment,
     }));
   }
 
   async getDoc(method: string) {
-    return data[method as keyof typeof data];
+    return data.methods[method as keyof typeof data.methods];
+  }
+
+  async getReadme(): Promise<string> {
+    return data.readme;
   }
 }
 
@@ -47,6 +52,17 @@ export const registerOkxTools = (server: McpServer) => {
       };
     },
   );
+
+  server.tool("查询 OKX交易所 SDK 项目的 README", async () => {
+    return {
+      content: [
+        {
+          text: await okxService.getReadme(),
+          type: "text",
+        },
+      ],
+    };
+  });
 
   return server;
 };

@@ -5,22 +5,29 @@ import { z } from "zod";
 
 export class BybitAdapter implements ExchangeAdapter {
   async listMethods() {
-    return Object.keys(data).map((k) => {
+    return Object.keys(data.methods).map((k) => {
       // 尝试从文档中提取 title
-      const docContent = data[k as keyof typeof data]?.doc || "";
+      const docContent =
+        data.methods[k as keyof typeof data.methods]?.doc || "";
       const titleMatch = docContent.match(/---[\s\S]*?\ntitle:\s*([^\n]+)\n/);
       const title = titleMatch ? titleMatch[1].trim() : null;
 
       return {
         method: k,
         description:
-          title || data[k as keyof typeof data]?.methodInfo?.methodComment,
+          title ||
+          data.methods[k as keyof typeof data.methods]?.methodInfo
+            ?.methodComment,
       };
     });
   }
 
   async getDoc(method: string) {
-    return data[method as keyof typeof data];
+    return data.methods[method as keyof typeof data.methods];
+  }
+
+  async getReadme(): Promise<string> {
+    return data.readme;
   }
 }
 
@@ -55,6 +62,17 @@ export const registerBybitTools = (server: McpServer) => {
       };
     },
   );
+
+  server.tool("查询 Bybit交易所 SDK 项目的 README", async () => {
+    return {
+      content: [
+        {
+          text: await bybitService.getReadme(),
+          type: "text",
+        },
+      ],
+    };
+  });
 
   return server;
 };
