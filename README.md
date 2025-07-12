@@ -23,7 +23,7 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 | --------------------------------------------------- | ------ |
 | [Gate.io](https://www.npmjs.com/package/gateio-api) | ✅     |
 | [Bybit](https://www.npmjs.com/package/bybit-api)    | ✅     |
-| Binance                                             | TODO   |
+| [Binance](https://www.npmjs.com/package/binance)    | ✅     |
 | Bitget                                              | TODO   |
 | [OKX](https://www.npmjs.com/package/okx-api)        | ✅     |
 | OKX DEX                                             | TODO   |

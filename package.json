@@ -24,7 +24,8 @@
     "generateGateOfflineData": "tsx ./src/adapter/gate/generateOfflineData.ts",
     "generateBybitOfflineData": "tsx ./src/adapter/bybit/generateOfflineData.ts",
     "generateOkxOfflineData": "tsx ./src/adapter/okx/generateOfflineData.ts",
-    "generateOfflineData": "npm run generateGateOfflineData && npm run generateBybitOfflineData && npm run generateOkxOfflineData",
+    "generateBinanceOfflineData": "tsx ./src/adapter/binance/generateOfflineData.ts",
+    "generateOfflineData": "npm run generateGateOfflineData && npm run generateBybitOfflineData && npm run generateOkxOfflineData && npm run generateBinanceOfflineData ",
     "postinstall": "chmod +x ./dist/index.js",
     "prepublishOnly": "npm run build"
   },

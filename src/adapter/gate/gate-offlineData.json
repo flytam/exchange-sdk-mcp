@@ -1871,7 +1871,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ uid: string; available: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/wallet\").SubAccountMarginBalance[]; }",
+              "name": "SubAccountMarginBalance",
               "properties": [
                 {
                   "name": "uid",
@@ -5332,7 +5332,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "object",
-                "name": "{ currency: string; margin_tiers: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/unified\").MarginTier[]; }",
+                "name": "MarginTier",
                 "properties": [
                   {
                     "name": "currency",
@@ -6047,45 +6047,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "SpotCurrencyChain",
-                        "properties": [
-                          {
-                            "name": "name",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "addr",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "withdraw_disabled",
-                            "type": {
-                              "kind": "boolean"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "withdraw_delayed",
-                            "type": {
-                              "kind": "boolean"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "deposit_disabled",
-                            "type": {
-                              "kind": "boolean"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "spot"
                       }
                     },
                     "optional": false
@@ -6192,45 +6155,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "SpotCurrencyChain",
-                      "properties": [
-                        {
-                          "name": "name",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "addr",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "withdraw_disabled",
-                          "type": {
-                            "kind": "boolean"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "withdraw_delayed",
-                          "type": {
-                            "kind": "boolean"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "deposit_disabled",
-                          "type": {
-                            "kind": "boolean"
-                          },
-                          "optional": false
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "spot"
                     }
                   },
                   "optional": false
@@ -7198,7 +7124,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/spot\").SpotCandle",
+                "name": "SpotCandle",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -7373,7 +7299,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "Record<string, import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/spot\").SpotFeeRates>",
+              "name": "SpotFeeRates",
               "properties": []
             }
           ]
@@ -8473,386 +8399,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "SpotOrder",
-                        "properties": [
-                          {
-                            "name": "id",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "text",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "amend_text",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "create_time",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "update_time",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "create_time_ms",
-                            "type": {
-                              "kind": "number"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "update_time_ms",
-                            "type": {
-                              "kind": "number"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "status",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"open\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"closed\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"cancelled\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "currency_pair",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "type",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"limit\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"market\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "account",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"spot\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"margin\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"cross_margin\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"unified\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "side",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"buy\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"sell\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "amount",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "price",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "time_in_force",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"gtc\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"ioc\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"poc\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"fok\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "iceberg",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "auto_borrow",
-                            "type": {
-                              "kind": "boolean"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "auto_repay",
-                            "type": {
-                              "kind": "boolean"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "left",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "filled_amount",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "fill_price",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "filled_total",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "avg_deal_price",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "fee_currency",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "point_fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "gt_fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "gt_maker_fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "gt_taker_fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "gt_discount",
-                            "type": {
-                              "kind": "boolean"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "rebated_fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "rebated_fee_currency",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "stp_id",
-                            "type": {
-                              "kind": "number"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "stp_act",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"cn\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"co\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"cb\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"-\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "finish_as",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"open\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"cancelled\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"ioc\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"filled\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"stp\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "action_mode",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"ACK\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"RESULT\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"FULL\""
-                                }
-                              ]
-                            },
-                            "optional": true
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "spot"
                       }
                     },
                     "optional": false
@@ -25461,7 +25009,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ xGateExptime?: number; settle: \"btc\" | \"usdt\" | \"usd\"; orders: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/request/futures\").SubmitFuturesOrderReq[]; }",
+              "name": "SubmitFuturesOrderReq",
               "properties": [
                 {
                   "name": "xGateExptime",
@@ -28107,7 +27655,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ xGateExptime?: number; settle: \"btc\" | \"usdt\" | \"usd\"; orders: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/request/futures\").BatchAmendOrderReq[]; }",
+              "name": "BatchAmendOrderReq",
               "properties": [
                 {
                   "name": "xGateExptime",
@@ -46098,7 +45646,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").AgencyTransactionHistoryRecord[]; }",
+              "name": "AgencyTransactionHistoryRecord",
               "properties": [
                 {
                   "name": "total",
@@ -46256,7 +45804,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").AgencyCommissionHistoryRecord[]; }",
+              "name": "AgencyCommissionHistoryRecord",
               "properties": [
                 {
                   "name": "total",
@@ -46393,7 +45941,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").PartnerTransaction[]; }",
+              "name": "PartnerTransaction",
               "properties": [
                 {
                   "name": "total",
@@ -46551,7 +46099,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").PartnerCommission[]; }",
+              "name": "PartnerCommission",
               "properties": [
                 {
                   "name": "total",
@@ -46667,7 +46215,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").PartnerSubordinate[]; }",
+              "name": "PartnerSubordinate",
               "properties": [
                 {
                   "name": "total",
@@ -46783,7 +46331,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").BrokerCommissionHistoryRecord[]; }",
+              "name": "BrokerCommissionHistoryRecord",
               "properties": [
                 {
                   "name": "total",
@@ -46934,7 +46482,7 @@
           "typeArguments": [
             {
               "kind": "object",
-              "name": "{ total: number; list: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/gateio-api/dist/mjs/types/response/rebate\").BrokerTransactionHistoryRecord[]; }",
+              "name": "BrokerTransactionHistoryRecord",
               "properties": [
                 {
                   "name": "total",

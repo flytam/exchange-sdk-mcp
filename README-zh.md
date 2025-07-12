@@ -19,14 +19,14 @@
 
 ## 当前支持的交易所
 
-| 交易所                                              | 状态 |
-| --------------------------------------------------- | ---- |
-| [Gate.io](https://www.npmjs.com/package/gateio-api) | ✅   |
-| [Bybit](https://www.npmjs.com/package/bybit-api)    | ✅   |
-| 币安 (Binance)                                      | TODO |
-| Bitget                                              | TODO |
-| [OKX](https://www.npmjs.com/package/okx-api)        | ✅   |
-| OKX DEX                                             | TODO |
+| 交易所                                                  | 状态 |
+| ------------------------------------------------------- | ---- |
+| [Gate.io](https://www.npmjs.com/package/gateio-api)     | ✅   |
+| [Bybit](https://www.npmjs.com/package/bybit-api)        | ✅   |
+| [币安 (Binance)](https://www.npmjs.com/package/binance) | ✅   |
+| Bitget                                                  | TODO |
+| [OKX](https://www.npmjs.com/package/okx-api)            | ✅   |
+| OKX DEX                                                 | TODO |
 
 ## 配置
 

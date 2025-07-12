@@ -336,226 +336,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "AccountBalanceDetail",
-                        "properties": [
-                          {
-                            "name": "availBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "availEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "cashBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "crossLiab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "disEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "eq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "eqUsd",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "frozenBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "interest",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "isoEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "isoLiab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "isoUpl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "liab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "maxLoan",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "mgnRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "notionalLever",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ordFrozen",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "twap",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "uTime",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "upl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "uplLiab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "stgyEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "spotBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "openAvgPx",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "string"
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "accAvgPx",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "string"
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "spotUpl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "spotUplRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "totalPnl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "totalPnlRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-account"
                       }
                     },
                     "optional": false
@@ -1317,7 +1099,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instType?: Omit<\"SPOT\", import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").InstrumentType>; }",
+              "name": "InstrumentType",
               "properties": [
                 {
                   "name": "instType",
@@ -1354,31 +1136,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "AccountBalanceRiskData",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "disEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "eq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-account"
                       }
                     },
                     "optional": false
@@ -1388,118 +1147,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "AccountPositionRiskData",
-                        "properties": [
-                          {
-                            "name": "baseBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "instType",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "mgnMode",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"cross\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"isolated\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "notionalCcy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "notionalUsd",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pos",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "posCcy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "posId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "posSide",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"net\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"long\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"short\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "quoteBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-account"
                       }
                     },
                     "optional": false
@@ -2276,7 +1925,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ posMode: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").PosMode; }",
+              "name": "PosMode",
               "properties": [
                 {
                   "name": "posMode",
@@ -2870,7 +2519,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instId?: string; ccy?: string; mgnMode: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").MarginMode; }",
+              "name": "MarginMode",
               "properties": [
                 {
                   "name": "instId",
@@ -2989,7 +2638,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instId?: string; ccy?: string; mgnMode: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").MarginMode; }",
+              "name": "MarginMode",
               "properties": [
                 {
                   "name": "instId",
@@ -3108,7 +2757,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instType: string; mgnMode: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").MarginMode; lever: string; instId?: string; ccy?: string; posSide: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").PositionSide; }",
+              "name": "MarginMode",
               "properties": [
                 {
                   "name": "instType",
@@ -3280,7 +2929,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instId: string; mgnMode: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").MarginMode; mgnCcy?: string; ccy?: string; }",
+              "name": "MarginMode",
               "properties": [
                 {
                   "name": "instId",
@@ -3406,7 +3055,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").InstrumentType; instId?: string; uly?: string; instFamily?: string; ruleType?: string; }",
+              "name": "InstrumentType",
               "properties": [
                 {
                   "name": "instType",
@@ -3577,7 +3226,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ type?: \"1\" | \"2\"; ccy?: string; instId?: string; mgnMode?: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").MarginMode; after?: string; before?: string; limit?: string; }",
+              "name": "MarginMode",
               "properties": [
                 {
                   "name": "type",
@@ -5308,52 +4957,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "FixedLoanBorrowingLimitDetail",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "used",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "borrowed",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "availBorrow",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "minBorrow",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "term",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-account"
                       }
                     },
                     "optional": false
@@ -6867,7 +6472,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ acctLv: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").AccountLevel; }",
+              "name": "AccountLevel",
               "properties": [
                 {
                   "name": "acctLv",
@@ -14375,159 +13980,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "GridAlgoTrigger",
-                      "properties": [
-                        {
-                          "name": "triggerAction",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"start\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"stop\""
-                              }
-                            ]
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "triggerStrategy",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"instant\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"price\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"rsi\""
-                              }
-                            ]
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "delaySeconds",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "timeframe",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"3m\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"5m\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"15m\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"30m\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"1H\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"4H\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"1D\""
-                              }
-                            ]
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "thold",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "triggerCond",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"cross\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"cross_up\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"cross_down\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"above\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"below\""
-                              }
-                            ]
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "timePeriod",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "triggerPx",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "stopType",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"1\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"2\""
-                              }
-                            ]
-                          },
-                          "optional": true
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "grid-trading"
                     }
                   },
                   "optional": true
@@ -15130,7 +14584,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ algoOrdType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/request/grid-trading\").GridAlgoOrderType; algoId: string; }",
+              "name": "GridAlgoOrderType",
               "properties": [
                 {
                   "name": "algoOrdType",
@@ -15191,7 +14645,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ algoOrdType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/request/grid-trading\").GridAlgoOrderType; algoId: string; type: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").GridAlgoSubOrderType; groupId?: string; after?: string; before?: string; limit?: number; }",
+              "name": "GridAlgoOrderType",
               "properties": [
                 {
                   "name": "algoOrdType",
@@ -15577,7 +15031,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ algoOrdType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/request/grid-trading\").GridAlgoOrderType; instId: string; direction: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").ContractGridDirection; duration?: \"7D\" | \"30D\" | \"180D\"; }",
+              "name": "GridAlgoOrderType",
               "properties": [
                 {
                   "name": "algoOrdType",
@@ -16193,82 +15647,16 @@
                 {
                   "name": "entrySettingParam",
                   "type": {
-                    "kind": "object",
-                    "name": "EntrySettingParam",
-                    "properties": [
-                      {
-                        "name": "allowMultipleEntry",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      },
-                      {
-                        "name": "entryType",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      },
-                      {
-                        "name": "amt",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      },
-                      {
-                        "name": "ratio",
-                        "type": {
-                          "kind": "array",
-                          "elementType": {
-                            "kind": "object",
-                            "name": "{ ratio: string; }",
-                            "properties": [
-                              {
-                                "name": "ratio",
-                                "type": {
-                                  "kind": "string"
-                                },
-                                "optional": false
-                              }
-                            ]
-                          }
-                        },
-                        "optional": true
-                      }
-                    ]
+                    "kind": "reference",
+                    "name": "signal-bot"
                   },
                   "optional": true
                 },
                 {
                   "name": "exitSettingParam",
                   "type": {
-                    "kind": "object",
-                    "name": "ExitSettingParam",
-                    "properties": [
-                      {
-                        "name": "tpSlType",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": false
-                      },
-                      {
-                        "name": "tpPct",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      },
-                      {
-                        "name": "slPct",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      }
-                    ]
+                    "kind": "reference",
+                    "name": "signal-bot"
                   },
                   "optional": true
                 }
@@ -16491,31 +15879,8 @@
                 {
                   "name": "exitSettingParam",
                   "type": {
-                    "kind": "object",
-                    "name": "ExitSettingParam",
-                    "properties": [
-                      {
-                        "name": "tpSlType",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": false
-                      },
-                      {
-                        "name": "tpPct",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      },
-                      {
-                        "name": "slPct",
-                        "type": {
-                          "kind": "string"
-                        },
-                        "optional": true
-                      }
-                    ]
+                    "kind": "reference",
+                    "name": "signal-bot"
                   },
                   "optional": false
                 }
@@ -17352,24 +16717,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "RecurringBuyInfo",
-                      "properties": [
-                        {
-                          "name": "ccy",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "ratio",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "recurring-buy"
                     }
                   },
                   "optional": false
@@ -17814,24 +17163,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "RecurringBuyInfoResult",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ratio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-recurring-buy"
                       }
                     },
                     "optional": false
@@ -18102,24 +17435,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "RecurringBuyInfoResult",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ratio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-recurring-buy"
                       }
                     },
                     "optional": false
@@ -18369,24 +17686,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "RecurringBuyInfoResult",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ratio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-recurring-buy"
                       }
                     },
                     "optional": false
@@ -20254,69 +19555,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "AccountConfigurationDetails",
-                        "properties": [
-                          {
-                            "name": "copyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "instType",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"SPOT\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"SWAP\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "maxCopyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "profitSharingRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "roleType",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"0\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"1\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"2\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -20922,24 +20162,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "CopySettingsInstId",
-                        "properties": [
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "enabled",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -21082,34 +20306,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "LeverageInfo",
-                        "properties": [
-                          {
-                            "name": "lever",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "posSide",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"long\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"short\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -21120,7 +20318,7 @@
                       "kind": "array",
                       "elementType": {
                         "kind": "reference",
-                        "name": "\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/private-copy-trading\".LeverageInfo"
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -21845,148 +21043,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "LeadTraderRank",
-                        "properties": [
-                          {
-                            "name": "accCopyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "aum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "copyState",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"0\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"1\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "copyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "leadDays",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "maxCopyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "nickName",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnlRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnlRatios",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "object",
-                                "name": "PnlRatio",
-                                "properties": [
-                                  {
-                                    "name": "beginTs",
-                                    "type": {
-                                      "kind": "string"
-                                    },
-                                    "optional": false
-                                  },
-                                  {
-                                    "name": "pnlRatio",
-                                    "type": {
-                                      "kind": "string"
-                                    },
-                                    "optional": false
-                                  }
-                                ]
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "portLink",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "traderInsts",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "string"
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "uniqueCode",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "winRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -22809,38 +21867,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "CopyTraderInfo",
-                        "properties": [
-                          {
-                            "name": "beginCopyTime",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "nickName",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "portLink",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -23042,148 +22070,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "LeadTraderRank",
-                        "properties": [
-                          {
-                            "name": "accCopyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "aum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "copyState",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"0\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"1\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "copyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "leadDays",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "maxCopyTraderNum",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "nickName",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnlRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnlRatios",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "object",
-                                "name": "PnlRatio",
-                                "properties": [
-                                  {
-                                    "name": "beginTs",
-                                    "type": {
-                                      "kind": "string"
-                                    },
-                                    "optional": false
-                                  },
-                                  {
-                                    "name": "pnlRatio",
-                                    "type": {
-                                      "kind": "string"
-                                    },
-                                    "optional": false
-                                  }
-                                ]
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "portLink",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "traderInsts",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "string"
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "uniqueCode",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "winRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -24006,38 +22894,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "CopyTraderInfo",
-                        "properties": [
-                          {
-                            "name": "beginCopyTime",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "nickName",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "portLink",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "pnl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-copy-trading"
                       }
                     },
                     "optional": false
@@ -24061,7 +22919,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").InstrumentType; uly?: string; instFamily?: string; }",
+              "name": "InstrumentType",
               "properties": [
                 {
                   "name": "instType",
@@ -24719,7 +23577,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").Candle",
+                "name": "Candle",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -24817,7 +23675,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").Candle",
+                "name": "Candle",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -25133,62 +23991,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "OptionsTradeInfo",
-                        "properties": [
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "tradeId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "px",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "sz",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "side",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"buy\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"sell\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ts",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "public-data"
                       }
                     },
                     "optional": false
@@ -25609,7 +24413,7 @@
                       "kind": "array",
                       "elementType": {
                         "kind": "object",
-                        "name": "Required<import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").RFQLeg>",
+                        "name": "RFQLeg",
                         "properties": [
                           {
                             "name": "instId",
@@ -26050,38 +24854,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "BlockMakerInstrumentData",
-                        "properties": [
-                          {
-                            "name": "uly",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "maxBlockSz",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          },
-                          {
-                            "name": "makerPxBand",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": true
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-block-trading"
                       }
                     },
                     "optional": false
@@ -26126,38 +24900,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "MakerInstrumentData",
-                      "properties": [
-                        {
-                          "name": "uly",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "instId",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "maxBlockSz",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        },
-                        {
-                          "name": "makerPxBand",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": true
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "block-trading"
                     }
                   },
                   "optional": false
@@ -26425,65 +25169,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "CreateBlockQuoteLeg",
-                      "properties": [
-                        {
-                          "name": "px",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "sz",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "instId",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "side",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"buy\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"sell\""
-                              }
-                            ]
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "tgtCcy",
-                          "type": {
-                            "kind": "union",
-                            "types": [
-                              {
-                                "kind": "other",
-                                "text": "\"base_ccy\""
-                              },
-                              {
-                                "kind": "other",
-                                "text": "\"quote_ccy\""
-                              }
-                            ]
-                          },
-                          "optional": true
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "block-trading"
                     }
                   },
                   "optional": false
@@ -26564,45 +25251,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "CreatedBlockQuoteLeg",
-                        "properties": [
-                          {
-                            "name": "px",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "sz",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "side",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "tgtCcy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-block-trading"
                       }
                     },
                     "optional": false
@@ -26987,7 +25637,7 @@
                       "kind": "array",
                       "elementType": {
                         "kind": "object",
-                        "name": "Required<import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").RFQLeg>",
+                        "name": "RFQLeg",
                         "properties": [
                           {
                             "name": "instId",
@@ -27154,45 +25804,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "BlockQuoteLeg",
-                        "properties": [
-                          {
-                            "name": "px",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "sz",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "side",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "tgtCcy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-block-trading"
                       }
                     },
                     "optional": false
@@ -27325,7 +25938,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").InstrumentType; uly?: string; }",
+              "name": "InstrumentType",
               "properties": [
                 {
                   "name": "instType",
@@ -29276,76 +27889,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "SpreadTradeLeg",
-                        "properties": [
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "px",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "sz",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "side",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"buy\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"sell\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "fee",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "szCont",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "feeCcy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "tradeId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-spread-trading"
                       }
                     },
                     "optional": false
@@ -29545,34 +28090,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "SpreadLeg",
-                        "properties": [
-                          {
-                            "name": "instId",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "side",
-                            "type": {
-                              "kind": "union",
-                              "types": [
-                                {
-                                  "kind": "other",
-                                  "text": "\"buy\""
-                                },
-                                {
-                                  "kind": "other",
-                                  "text": "\"sell\""
-                                }
-                              ]
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-spread-trading"
                       }
                     },
                     "optional": false
@@ -29632,31 +28151,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "OrderBookEntry",
-                        "properties": [
-                          {
-                            "name": "price",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "quantity",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "orderCount",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-spread-trading"
                       }
                     },
                     "optional": false
@@ -29667,7 +28163,7 @@
                       "kind": "array",
                       "elementType": {
                         "kind": "reference",
-                        "name": "\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/private-spread-trading\".OrderBookEntry"
+                        "name": "private-spread-trading"
                       }
                     },
                     "optional": false
@@ -30217,7 +28713,7 @@
             "name": "params",
             "type": {
               "kind": "object",
-              "name": "{ instType: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/shared\").InstrumentType; uly?: string; instFamily?: string; instId?: string; }",
+              "name": "InstrumentType",
               "properties": [
                 {
                   "name": "instType",
@@ -31453,7 +29949,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").CandleNoVolume",
+                "name": "CandleNoVolume",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -31539,7 +30035,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").CandleNoVolume",
+                "name": "CandleNoVolume",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -31625,7 +30121,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").CandleNoVolume",
+                "name": "CandleNoVolume",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -31711,7 +30207,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "generic",
-                "name": "import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").CandleNoVolume",
+                "name": "CandleNoVolume",
                 "typeArguments": [
                   {
                     "kind": "string"
@@ -36367,212 +34863,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "SubAccountBalanceDetail",
-                        "properties": [
-                          {
-                            "name": "availBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "availEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "cashBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "crossLiab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "disEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "eq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "eqUsd",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "frozenBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "interest",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "isoEq",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "isoLiab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "liab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "maxLoan",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "mgnRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "notionalLever",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "ordFrozen",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "twap",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "uTime",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "upl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "uplLiab",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "spotBal",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "openAvgPx",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "string"
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "accAvgPx",
-                            "type": {
-                              "kind": "array",
-                              "elementType": {
-                                "kind": "string"
-                              }
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "spotUpl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "spotUplRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "totalPnl",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "totalPnlRatio",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-subaccount"
                       }
                     },
                     "optional": false
@@ -37271,24 +35563,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "LoanAllocation",
-                      "properties": [
-                        {
-                          "name": "subAcct",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "loanAlloc",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "subaccount"
                     }
                   },
                   "optional": true
@@ -38891,31 +37167,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "CollateralAsset",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "amt",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "notionalUsd",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-flexible-loan"
                       }
                     },
                     "optional": false
@@ -38953,24 +37206,8 @@
                   "type": {
                     "kind": "array",
                     "elementType": {
-                      "kind": "object",
-                      "name": "SupplementaryCollateral",
-                      "properties": [
-                        {
-                          "name": "ccy",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "amt",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "private-flexible-loan"
                     }
                   },
                   "optional": true
@@ -39370,7 +37607,7 @@
                   "optional": false
                 },
                 {
-                  "name": "__@iterator@199",
+                  "name": "__@iterator@169",
                   "type": {
                     "kind": "object",
                     "name": "() => ArrayIterator<never>",
@@ -39379,7 +37616,7 @@
                   "optional": false
                 },
                 {
-                  "name": "__@unscopables@3835",
+                  "name": "__@unscopables@3654",
                   "type": {
                     "kind": "object",
                     "name": "{ [x: number]: boolean; length?: boolean; toString?: boolean; toLocaleString?: boolean; pop?: boolean; push?: boolean; concat?: boolean; join?: boolean; reverse?: boolean; shift?: boolean; slice?: boolean; sort?: boolean; splice?: boolean; unshift?: boolean; indexOf?: boolean; lastIndexOf?: boolean; every?: boolean; some?: boolean; forEach?: boolean; map?: boolean; filter?: boolean; reduce?: boolean; reduceRight?: boolean; find?: boolean; findIndex?: boolean; fill?: boolean; copyWithin?: boolean; entries?: boolean; keys?: boolean; values?: boolean; includes?: boolean; flatMap?: boolean; flat?: boolean; [Symbol.iterator]?: boolean; readonly [Symbol.unscopables]?: boolean; at?: boolean; }",
@@ -39609,14 +37846,14 @@
                         "optional": true
                       },
                       {
-                        "name": "__@iterator@199",
+                        "name": "__@iterator@169",
                         "type": {
                           "kind": "any"
                         },
                         "optional": true
                       },
                       {
-                        "name": "__@unscopables@3835",
+                        "name": "__@unscopables@3654",
                         "type": {
                           "kind": "any"
                         },
@@ -39678,24 +37915,8 @@
                     "type": {
                       "kind": "array",
                       "elementType": {
-                        "kind": "object",
-                        "name": "LoanCurrencyData",
-                        "properties": [
-                          {
-                            "name": "ccy",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          },
-                          {
-                            "name": "amt",
-                            "type": {
-                              "kind": "string"
-                            },
-                            "optional": false
-                          }
-                        ]
+                        "kind": "reference",
+                        "name": "private-flexible-loan"
                       }
                     },
                     "optional": false
@@ -39713,7 +37934,7 @@
                       "kind": "array",
                       "elementType": {
                         "kind": "reference",
-                        "name": "\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/private-flexible-loan\".LoanCurrencyData"
+                        "name": "private-flexible-loan"
                       }
                     },
                     "optional": false
@@ -39721,24 +37942,8 @@
                   {
                     "name": "riskWarningData",
                     "type": {
-                      "kind": "object",
-                      "name": "RiskWarningData",
-                      "properties": [
-                        {
-                          "name": "instId",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        },
-                        {
-                          "name": "liqPx",
-                          "type": {
-                            "kind": "string"
-                          },
-                          "optional": false
-                        }
-                      ]
+                      "kind": "reference",
+                      "name": "private-flexible-loan"
                     },
                     "optional": false
                   },
@@ -40192,7 +38397,7 @@
               "kind": "array",
               "elementType": {
                 "kind": "object",
-                "name": "{ totalPage: string; details: import(\"/Users/jiahui/project/exchange-sdk-mcp/node_modules/okx-api/lib/types/rest/response/public-data\").Announcement[]; }",
+                "name": "Announcement",
                 "properties": [
                   {
                     "name": "totalPage",

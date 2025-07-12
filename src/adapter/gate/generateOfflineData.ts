@@ -154,7 +154,27 @@ function parseType(type: Type, visited = new Set<string>()): any {
   const typeArguments = type.getTypeArguments();
   if (typeArguments.length > 0) {
     const symbol = type.getSymbol();
-    const typeName = symbol ? symbol.getName() : type.getText();
+    let typeName = symbol ? symbol.getName() : type.getText();
+
+    // 处理导入路径，移除绝对路径前缀
+    if (typeName.includes('import("')) {
+      const match = typeName.match(/import\(".*?"\)\.(\w+)/);
+      if (match && match[1]) {
+        typeName = match[1];
+      }
+    } else if (
+      typeName.startsWith('"') &&
+      typeName.includes("/node_modules/")
+    ) {
+      // 处理直接以引号包裹的绝对路径格式
+      const match = typeName.match(/".*\/node_modules\/.*\/([^"]+)"/);
+      if (match && match[1]) {
+        // 提取最后一个组件（通常是类型名称）
+        const parts = match[1].split(".");
+        typeName = parts[parts.length - 1];
+      }
+    }
+
     return {
       kind: "generic",
       name: typeName,
@@ -165,7 +185,30 @@ function parseType(type: Type, visited = new Set<string>()): any {
   if (type.isObject() && !type.isArray()) {
     const symbol = type.getSymbol();
     if (symbol) {
-      const fullName = symbol.getFullyQualifiedName();
+      let fullName = symbol.getFullyQualifiedName();
+
+      // 处理 reference 类型中可能存在的绝对路径
+      if (fullName.includes('import("')) {
+        // 提取导入路径中的实际类型名称
+        const importMatch = fullName.match(
+          /import\(".*"\)\.(([\w\d_]+)(\<.*\>)?)/,
+        );
+        if (importMatch && importMatch[1]) {
+          fullName = importMatch[1];
+        }
+      } else if (
+        fullName.startsWith('"') &&
+        fullName.includes("/node_modules/")
+      ) {
+        // 处理直接以引号包裹的绝对路径格式
+        const match = fullName.match(/".*\/node_modules\/.*\/([^"]+)"/);
+        if (match && match[1]) {
+          // 提取最后一个组件（通常是类型名称）
+          const parts = match[1].split(".");
+          fullName = parts[parts.length - 1];
+        }
+      }
+
       if (visited.has(fullName)) return { kind: "reference", name: fullName };
       visited.add(fullName);
 
@@ -187,9 +230,30 @@ function parseType(type: Type, visited = new Set<string>()): any {
               optional: prop.isOptional?.() ?? false,
             };
           });
+
+          // 处理类型名称，移除绝对路径前缀
+          let typeName = symbol.getName();
+          if (typeName.includes('import("')) {
+            const match = typeName.match(/import\(".*?"\)\.(\w+)/);
+            if (match && match[1]) {
+              typeName = match[1];
+            }
+          } else if (
+            typeName.startsWith('"') &&
+            typeName.includes("/node_modules/")
+          ) {
+            // 处理直接以引号包裹的绝对路径格式
+            const match = typeName.match(/".*\/node_modules\/.*\/([^"]+)"/);
+            if (match && match[1]) {
+              // 提取最后一个组件（通常是类型名称）
+              const parts = match[1].split(".");
+              typeName = parts[parts.length - 1];
+            }
+          }
+
           return {
             kind: "object",
-            name: symbol.getName(),
+            name: typeName,
             properties,
           };
         }
@@ -207,16 +271,43 @@ function parseType(type: Type, visited = new Set<string>()): any {
       };
     });
 
+    // 处理类型名称，移除绝对路径前缀
+    let typeName = type.getText();
+    if (typeName.includes('import("')) {
+      const match = typeName.match(/import\(".*?"\)\.(\w+)/);
+      if (match && match[1]) {
+        typeName = match[1];
+      }
+    }
+
     return {
       kind: "object",
-      name: type.getText(),
+      name: typeName,
       properties,
     };
   }
 
+  // 处理 other 类型中可能存在的绝对路径
+  let typeText = type.getText();
+  if (typeText.includes('import("')) {
+    // 提取导入路径中的实际类型名称
+    const importMatch = typeText.match(/import\(".*"\)\.(([\w\d_]+)(\<.*\>)?)/);
+    if (importMatch && importMatch[1]) {
+      typeText = importMatch[1];
+    }
+  } else if (typeText.startsWith('"') && typeText.includes("/node_modules/")) {
+    // 处理直接以引号包裹的绝对路径格式
+    const match = typeText.match(/".*\/node_modules\/.*\/([^"]+)"/);
+    if (match && match[1]) {
+      // 提取最后一个组件（通常是类型名称）
+      const parts = match[1].split(".");
+      typeText = parts[parts.length - 1];
+    }
+  }
+
   return {
     kind: "other",
-    text: type.getText(),
+    text: typeText,
   };
 }
 
