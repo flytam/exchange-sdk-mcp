@@ -4,10 +4,8 @@ export default defineConfig({
   lib: [
     {
       format: "esm",
-      syntax: ["node 18"],
+      syntax: ["node 22"],
       dts: true,
-      // bundle: false,
-      banner: { js: "#!/usr/bin/env node" },
     },
   ],
 });

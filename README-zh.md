@@ -1,7 +1,7 @@
 # 加密货币交易所 SDK 文档查询 MCP
 
 [![npm 版本](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
-[![GitHub Actions 工作流状态](https://img.shields.io/github/actions/workflow/status/flytam/exchange-sdk-mcp/npm-publish.yml?label=publish)](https://github.com/your-username/exchange-sdk-mcp/actions/workflows/npm-publish.yml)
+[![GitHub Actions 工作流状态](https://img.shields.io/github/actions/workflow/status/flytam/exchange-sdk-mcp/npm-publish.yml?label=publish)](https://github.com/flytam/exchange-sdk-mcp/actions/workflows/npm-publish.yml)
 
 [English](./README.md)
 
@@ -53,23 +53,33 @@
 
 该服务设计具有良好的扩展性，便于未来添加新的交易所支持。每个交易所都实现为一个适配器，遵循通用接口，使添加新交易所支持变得简单。
 
+## 系统要求
+
+- Node.js >= 22
+
 ## 开发
 
 ```bash
 # 安装依赖
 pnpm install
+```
 
 # 构建项目
+
 pnpm run build
 
 # 开发模式（监视文件变化）
+
 pnpm run dev
 
 # 使用MCP检查器测试
+
 pnpm run inspect
 
 # 生成交易所离线数据
+
 pnpm run generateOfflineData
+
 ```
 
 ## 贡献
@@ -79,3 +89,4 @@ pnpm run generateOfflineData
 ## 许可证
 
 MIT
+```

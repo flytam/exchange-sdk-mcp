@@ -1,7 +1,7 @@
 # Crypto Exchange SDK Documentation MCP
 
 [![npm version](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
-[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/flytam/exchange-sdk-mcp/npm-publish.yml?label=publish)](https://github.com/your-username/exchange-sdk-mcp/actions/workflows/npm-publish.yml)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/flytam/exchange-sdk-mcp/npm-publish.yml?label=publish)](https://github.com/flytam/exchange-sdk-mcp/actions/workflows/npm-publish.yml)
 
 [中文文档](./README-zh.md)
 
@@ -53,23 +53,33 @@ This MCP service provides the following tools:
 
 The service is designed with extensibility in mind, making it easy to add support for new exchanges in the future. Each exchange is implemented as an adapter following a common interface, making it simple to add support for new exchanges.
 
+## Requirements
+
+- Node.js >= 22
+
 ## Development
 
 ```bash
 # Install dependencies
 pnpm install
+```
 
 # Build the project
+
 pnpm run build
 
 # Development mode (watch for changes)
+
 pnpm run dev
 
 # Test with MCP inspector
+
 pnpm run inspect
 
 # Generate offline data for exchanges
+
 pnpm run generateOfflineData
+
 ```
 
 ## Contributing
@@ -79,3 +89,4 @@ Contributions are welcome! If you'd like to add support for a new exchange, plea
 ## License
 
 MIT
+```
