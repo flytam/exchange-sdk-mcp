@@ -4,14 +4,18 @@ import { registerGateTools } from "./adapter/gate";
 import { registerBybitTools } from "./adapter/bybit";
 import { registerOkxTools } from "./adapter/okx";
 import { registerBinanceTools } from "./adapter/binance";
+import { registerBitgetTools } from "./adapter/bitget";
+// 直接导入 package.json
+import packageJson from "../package.json";
 
 interface CommandOptions {}
 
 const createMcpServer = () =>
   new McpServer({
     name: "crypto-exchange-mcp",
-    description: "MCP server for interacting with Crypto Exchange APIs",
-    version: "0.0.1",
+    description:
+      "MCP server for querying cryptocurrency exchange SDK documentation and API methods",
+    version: packageJson.version,
   });
 
 const connectServer = async (server: McpServer) => {
@@ -28,6 +32,7 @@ export const startMcpServer = async (options: CommandOptions = {}) => {
     registerBybitTools(server);
     registerOkxTools(server);
     registerBinanceTools(server);
+    registerBitgetTools(server);
     await connectServer(server);
   } catch (error) {
     console.error("Failed to start  MCP server:", error);

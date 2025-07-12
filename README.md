@@ -1,7 +1,6 @@
 # Crypto Exchange SDK Documentation MCP
 
 [![npm version](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
 
 [中文文档](./README-zh.md)
 
@@ -19,14 +18,14 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 
 ## Currently Supported Exchanges
 
-| Exchange                                            | Status |
-| --------------------------------------------------- | ------ |
-| [Gate.io](https://www.npmjs.com/package/gateio-api) | ✅     |
-| [Bybit](https://www.npmjs.com/package/bybit-api)    | ✅     |
-| [Binance](https://www.npmjs.com/package/binance)    | ✅     |
-| Bitget                                              | TODO   |
-| [OKX](https://www.npmjs.com/package/okx-api)        | ✅     |
-| OKX DEX                                             | TODO   |
+| Exchange SDK                                                                                                | Status |
+| ----------------------------------------------------------------------------------------------------------- | ------ |
+| [Gate.io SDK](https://www.npmjs.com/package/gateio-api) [Docs](https://www.gate.com/docs/developers/apiv4)  | ✅     |
+| [Bybit SDK](https://www.npmjs.com/package/bybit-api) [Docs](https://bybit-exchange.github.io/docs/v5/intro) | ✅     |
+| [Binance SDK](https://www.npmjs.com/package/binance) [Docs](https://developers.binance.com/en)              | ✅     |
+| [Bitget SDK](https://www.npmjs.com/package/bitget-api) [Docs](https://www.bitget.com/api-doc/common/intro)  | ✅     |
+| [OKX SDK](https://www.npmjs.com/package/okx-api) [Docs](https://www.okx.com/docs-v5/en/#overview)           | ✅     |
+| OKX DEX                                                                                                     | TODO   |
 
 ## Configuration
 

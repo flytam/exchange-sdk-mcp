@@ -1,7 +1,6 @@
 # 加密货币交易所 SDK 文档查询 MCP
 
 [![npm 版本](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
-[![版本](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
 
 [English](./README.md)
 
@@ -19,14 +18,14 @@
 
 ## 当前支持的交易所
 
-| 交易所                                                  | 状态 |
-| ------------------------------------------------------- | ---- |
-| [Gate.io](https://www.npmjs.com/package/gateio-api)     | ✅   |
-| [Bybit](https://www.npmjs.com/package/bybit-api)        | ✅   |
-| [币安 (Binance)](https://www.npmjs.com/package/binance) | ✅   |
-| Bitget                                                  | TODO |
-| [OKX](https://www.npmjs.com/package/okx-api)            | ✅   |
-| OKX DEX                                                 | TODO |
+| 交易所 SDK                                                                                                  | 状态 |
+| ----------------------------------------------------------------------------------------------------------- | ---- |
+| [Gate.io SDK](https://www.npmjs.com/package/gateio-api) [文档](https://www.gate.com/docs/developers/apiv4)  | ✅   |
+| [Bybit SDK](https://www.npmjs.com/package/bybit-api) [文档](https://bybit-exchange.github.io/docs/v5/intro) | ✅   |
+| [币安 SDK](https://www.npmjs.com/package/binance) [文档](https://developers.binance.com/en)                 | ✅   |
+| [Bitget SDK](https://www.npmjs.com/package/bitget-api) [文档](https://www.bitget.com/api-doc/common/intro)  | ✅   |
+| [OKX SDK](https://www.npmjs.com/package/okx-api) [文档](https://www.okx.com/docs-v5/en/#overview)           | ✅   |
+| OKX DEX                                                                                                     | TODO |
 
 ## 配置
 

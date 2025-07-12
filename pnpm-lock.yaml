@@ -35,6 +35,9 @@ importers:
       binance:
         specifier: ^3.0.0
         version: 3.0.0(typescript@5.0.4)
+      bitget-api:
+        specifier: ^2.3.5
+        version: 2.3.5
       bybit-api:
         specifier: ^4.1.13
         version: 4.1.13(typescript@5.0.4)
@@ -1740,6 +1743,12 @@ packages:
         integrity: sha512-bIc4+fmXApY3C3D8UKBkMmMwlZ2T8n+oTO7POkuoVnkMithF5JV/ichRXb0eIXvkPSbGMvikh1hnw3gzEFgPDQ==,
       }
 
+  bitget-api@2.3.5:
+    resolution:
+      {
+        integrity: sha512-hbyFp7NTau5EPp0r0iqw4qji8MBwmdDF7vrfObjuR+IsFZgELYkHGhD3ySfKvRWybDR7h9acFzl8aIhYzf1dCw==,
+      }
+
   body-parser@2.2.0:
     resolution:
       {
@@ -2809,6 +2818,14 @@ packages:
     resolution:
       {
         integrity: sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==,
+      }
+    peerDependencies:
+      ws: "*"
+
+  isomorphic-ws@5.0.0:
+    resolution:
+      {
+        integrity: sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==,
       }
     peerDependencies:
       ws: "*"
@@ -5309,19 +5326,19 @@ snapshots:
       "@xtuc/long": 4.2.2
     optional: true
 
-  "@webpack-cli/configtest@1.2.0(webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9))(webpack@5.99.9)":
+  "@webpack-cli/configtest@1.2.0(webpack-cli@4.10.0)(webpack@5.99.9)":
     dependencies:
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
       webpack-cli: 4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9)
     optional: true
 
   "@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.99.9)":
     dependencies:
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack@5.99.9)
     optional: true
 
-  "@webpack-cli/info@1.5.0(webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9))":
+  "@webpack-cli/info@1.5.0(webpack-cli@4.10.0)":
     dependencies:
       envinfo: 7.14.0
       webpack-cli: 4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9)
@@ -5329,18 +5346,18 @@ snapshots:
 
   "@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.99.9)":
     dependencies:
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack@5.99.9)
     optional: true
 
-  "@webpack-cli/serve@1.7.0(webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9))":
+  "@webpack-cli/serve@1.7.0(webpack-cli@4.10.0)":
     dependencies:
       webpack-cli: 4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9)
     optional: true
 
   "@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack@5.99.9)":
     dependencies:
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack@5.99.9)
     optional: true
 
@@ -5441,6 +5458,16 @@ snapshots:
       - utf-8-validate
       - webpack-bundle-analyzer
       - webpack-dev-server
+
+  bitget-api@2.3.5:
+    dependencies:
+      axios: 1.9.0
+      isomorphic-ws: 5.0.0(ws@8.18.2)
+      ws: 8.18.2
+    transitivePeerDependencies:
+      - bufferutil
+      - debug
+      - utf-8-validate
 
   body-parser@2.2.0:
     dependencies:
@@ -6123,6 +6150,10 @@ snapshots:
     dependencies:
       ws: 8.18.2
 
+  isomorphic-ws@5.0.0(ws@8.18.2):
+    dependencies:
+      ws: 8.18.2
+
   jest-worker@27.5.1:
     dependencies:
       "@types/node": 17.0.40
@@ -6689,14 +6720,14 @@ snapshots:
       abab: 2.0.6
       iconv-lite: 0.6.3
       source-map-js: 0.6.2
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
     optional: true
 
   source-map-loader@4.0.2(webpack@5.99.9):
     dependencies:
       iconv-lite: 0.6.3
       source-map-js: 1.2.1
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
     optional: true
 
   source-map-support@0.5.21:
@@ -6769,7 +6800,7 @@ snapshots:
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.43.1
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
     optional: true
 
   terser@5.43.1:
@@ -6814,7 +6845,7 @@ snapshots:
       micromatch: 4.0.8
       semver: 7.7.2
       typescript: 5.0.4
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
     optional: true
 
   ts-loader@9.5.2(typescript@5.0.4)(webpack@5.99.9):
@@ -6825,7 +6856,7 @@ snapshots:
       semver: 7.7.2
       source-map: 0.7.4
       typescript: 5.0.4
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
     optional: true
 
   ts-morph@26.0.0:
@@ -7014,9 +7045,9 @@ snapshots:
   webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9):
     dependencies:
       "@discoveryjs/json-ext": 0.5.7
-      "@webpack-cli/configtest": 1.2.0(webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9))(webpack@5.99.9)
-      "@webpack-cli/info": 1.5.0(webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9))
-      "@webpack-cli/serve": 1.7.0(webpack-cli@4.10.0(webpack-bundle-analyzer@4.10.2)(webpack@5.99.9))
+      "@webpack-cli/configtest": 1.2.0(webpack-cli@4.10.0)(webpack@5.99.9)
+      "@webpack-cli/info": 1.5.0(webpack-cli@4.10.0)
+      "@webpack-cli/serve": 1.7.0(webpack-cli@4.10.0)
       colorette: 2.0.20
       commander: 7.2.0
       cross-spawn: 7.0.6
@@ -7024,7 +7055,7 @@ snapshots:
       import-local: 3.2.0
       interpret: 2.2.0
       rechoir: 0.7.1
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
       webpack-merge: 5.10.0
     optionalDependencies:
       webpack-bundle-analyzer: 4.10.2
@@ -7044,7 +7075,7 @@ snapshots:
       import-local: 3.2.0
       interpret: 3.1.1
       rechoir: 0.8.0
-      webpack: 5.99.9(webpack-cli@4.10.0)
+      webpack: 5.99.9(webpack-cli@5.1.4)
       webpack-merge: 5.10.0
     optional: true
 
