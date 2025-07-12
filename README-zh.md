@@ -35,7 +35,7 @@
   "mcpServers": {
     "crypto-exchange-mcp": {
       "command": "npx",
-      "args": ["-y", "crypto-exchange-mcp"]
+      "args": ["-y", "crypto-exchange-mcp@latest"]
     }
   }
 }

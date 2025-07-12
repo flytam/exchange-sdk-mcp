@@ -35,7 +35,7 @@ A Model Context Protocol (MCP) service designed to help developers easily access
   "mcpServers": {
     "crypto-exchange-mcp": {
       "command": "npx",
-      "args": ["-y", "crypto-exchange-mcp"]
+      "args": ["-y", "crypto-exchange-mcp@latest"]
     }
   }
 }
