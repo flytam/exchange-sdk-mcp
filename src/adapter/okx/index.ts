@@ -23,11 +23,14 @@ export class OkxAdapter implements ExchangeAdapter {
 
 export const registerOkxTools = (server: McpServer) => {
   const okxService = new OkxAdapter();
-  server.tool("查询 OKX交易所 SDK 支持的方法", async () => {
+  server.tool("Query OKX Exchange SDK Supported Methods", async () => {
     return {
       content: [
         {
-          text: JSON.stringify(await okxService.listMethods()),
+          text: JSON.stringify({
+            available_methods: await okxService.listMethods(),
+            SDK_documentation: await okxService.getReadme(),
+          }),
           type: "text",
         },
       ],
@@ -35,10 +38,10 @@ export const registerOkxTools = (server: McpServer) => {
   });
 
   server.tool(
-    "查询 OKX交易所 SDK 方法的使用信息",
+    "Query OKX Exchange SDK Method Usage Information",
     {
       method: z.string({
-        description: "查询的具体方法名称",
+        description: "The specific method name to query",
       }),
     },
     async ({ method }) => {
@@ -52,17 +55,6 @@ export const registerOkxTools = (server: McpServer) => {
       };
     },
   );
-
-  server.tool("查询 OKX交易所 SDK 项目的 README", async () => {
-    return {
-      content: [
-        {
-          text: await okxService.getReadme(),
-          type: "text",
-        },
-      ],
-    };
-  });
 
   return server;
 };

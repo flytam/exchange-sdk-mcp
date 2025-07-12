@@ -6,7 +6,7 @@ import { z } from "zod";
 export class BinanceAdapter implements ExchangeAdapter {
   async listMethods() {
     return Object.keys(data.methods).map((k) => {
-      // 尝试从文档中提取 title
+      // Try to extract title from documentation
       const docContent =
         data.methods[k as keyof typeof data.methods]?.doc || "";
       const titleMatch = docContent.match(/---[\s\S]*?\ntitle:\s*([^\n]+)\n/);
@@ -33,11 +33,14 @@ export class BinanceAdapter implements ExchangeAdapter {
 
 export const registerBinanceTools = (server: McpServer) => {
   const binanceService = new BinanceAdapter();
-  server.tool("查询 Binance交易所 SDK 支持的方法", async () => {
+  server.tool("Query Binance Exchange SDK Supported Methods", async () => {
     return {
       content: [
         {
-          text: JSON.stringify(await binanceService.listMethods()),
+          text: JSON.stringify({
+            available_methods: await binanceService.listMethods(),
+            SDK_documentation: await binanceService.getReadme(),
+          }),
           type: "text",
         },
       ],
@@ -45,10 +48,10 @@ export const registerBinanceTools = (server: McpServer) => {
   });
 
   server.tool(
-    "查询 Binance交易所 SDK 方法的使用信息",
+    "Query Binance Exchange SDK Method Usage Information",
     {
       method: z.string({
-        description: "查询的具体方法名称",
+        description: "The specific method name to query",
       }),
     },
     async ({ method }) => {
@@ -62,17 +65,6 @@ export const registerBinanceTools = (server: McpServer) => {
       };
     },
   );
-
-  server.tool("查询 Binance交易所 SDK 项目的 README", async () => {
-    return {
-      content: [
-        {
-          text: await binanceService.getReadme(),
-          type: "text",
-        },
-      ],
-    };
-  });
 
   return server;
 };

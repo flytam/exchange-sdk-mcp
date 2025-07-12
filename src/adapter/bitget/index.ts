@@ -26,11 +26,14 @@ export class BitgetAdapter implements ExchangeAdapter {
 
 export const registerBitgetTools = (server: McpServer) => {
   const bitgetService = new BitgetAdapter();
-  server.tool("查询 Bitget交易所 SDK 支持的方法", async () => {
+  server.tool("Query Bitget Exchange SDK Supported Methods", async () => {
     return {
       content: [
         {
-          text: JSON.stringify(await bitgetService.listMethods()),
+          text: JSON.stringify({
+            available_methods: await bitgetService.listMethods(),
+            SDK_documentation: await bitgetService.getReadme(),
+          }),
           type: "text",
         },
       ],
@@ -38,10 +41,10 @@ export const registerBitgetTools = (server: McpServer) => {
   });
 
   server.tool(
-    "查询 Bitget交易所 SDK 方法的使用信息",
+    "Query Bitget Exchange SDK Method Usage Information",
     {
       method: z.string({
-        description: "查询的具体方法名称",
+        description: "The specific method name to query",
       }),
     },
     async ({ method }) => {
@@ -55,15 +58,4 @@ export const registerBitgetTools = (server: McpServer) => {
       };
     },
   );
-
-  server.tool("查询 Bitget交易所 SDK README", async () => {
-    return {
-      content: [
-        {
-          text: await bitgetService.getReadme(),
-          type: "text",
-        },
-      ],
-    };
-  });
 };

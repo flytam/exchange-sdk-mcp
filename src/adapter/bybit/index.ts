@@ -6,7 +6,7 @@ import { z } from "zod";
 export class BybitAdapter implements ExchangeAdapter {
   async listMethods() {
     return Object.keys(data.methods).map((k) => {
-      // 尝试从文档中提取 title
+      // Try to extract title from documentation
       const docContent =
         data.methods[k as keyof typeof data.methods]?.doc || "";
       const titleMatch = docContent.match(/---[\s\S]*?\ntitle:\s*([^\n]+)\n/);
@@ -33,11 +33,14 @@ export class BybitAdapter implements ExchangeAdapter {
 
 export const registerBybitTools = (server: McpServer) => {
   const bybitService = new BybitAdapter();
-  server.tool("查询 Bybit交易所 SDK 支持的方法", async () => {
+  server.tool("Query Bybit Exchange SDK Supported Methods", async () => {
     return {
       content: [
         {
-          text: JSON.stringify(await bybitService.listMethods()),
+          text: JSON.stringify({
+            available_methods: await bybitService.listMethods(),
+            SDK_documentation: await bybitService.getReadme(),
+          }),
           type: "text",
         },
       ],
@@ -45,10 +48,10 @@ export const registerBybitTools = (server: McpServer) => {
   });
 
   server.tool(
-    "查询 Bybit交易所 SDK 方法的使用信息",
+    "Query Bybit Exchange SDK Method Usage Information",
     {
       method: z.string({
-        description: "查询的具体方法名称",
+        description: "The specific method name to query",
       }),
     },
     async ({ method }) => {
@@ -62,17 +65,6 @@ export const registerBybitTools = (server: McpServer) => {
       };
     },
   );
-
-  server.tool("查询 Bybit交易所 SDK 项目的 README", async () => {
-    return {
-      content: [
-        {
-          text: await bybitService.getReadme(),
-          type: "text",
-        },
-      ],
-    };
-  });
 
   return server;
 };

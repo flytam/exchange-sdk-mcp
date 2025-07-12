@@ -1,11 +1,10 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"; // Assuming stdio transport is still desired
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { registerGateTools } from "./adapter/gate";
 import { registerBybitTools } from "./adapter/bybit";
 import { registerOkxTools } from "./adapter/okx";
 import { registerBinanceTools } from "./adapter/binance";
 import { registerBitgetTools } from "./adapter/bitget";
-// 直接导入 package.json
 import packageJson from "../package.json";
 
 interface CommandOptions {}
@@ -14,29 +13,47 @@ const createMcpServer = () =>
   new McpServer({
     name: "crypto-exchange-mcp",
     description:
-      "MCP server for querying cryptocurrency exchange SDK documentation and API methods",
+      "Cryptocurrency Exchange SDK Documentation Service, providing API methods and documentation for Gate.io, Bybit, Binance, Bitget, OKX and other exchanges, with offline query support",
     version: packageJson.version,
   });
 
 const connectServer = async (server: McpServer) => {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.log("MCP server connected via stdio.");
+  console.log(
+    "Cryptocurrency Exchange SDK Documentation MCP service connected via stdio.",
+  );
   return server;
 };
 
 export const startMcpServer = async (options: CommandOptions = {}) => {
   try {
+    console.log(
+      `Starting Cryptocurrency Exchange SDK Documentation MCP service v${packageJson.version}...`,
+    );
     const server = createMcpServer();
+
+    console.log("Registering Gate.io exchange tools...");
     registerGateTools(server);
+
+    console.log("Registering Bybit exchange tools...");
     registerBybitTools(server);
+
+    console.log("Registering OKX exchange tools...");
     registerOkxTools(server);
+
+    console.log("Registering Binance exchange tools...");
     registerBinanceTools(server);
+
+    console.log("Registering Bitget exchange tools...");
     registerBitgetTools(server);
+
     await connectServer(server);
+    console.log("MCP service started successfully, available tools:");
+    console.log("1. Query [Exchange] SDK Supported Methods");
+    console.log("2. Query [Exchange] SDK Method Usage Information");
   } catch (error) {
-    console.error("Failed to start  MCP server:", error);
-    // Graceful exit or error handling
+    console.error("Failed to start MCP service:", error);
     process.exit(1);
   }
 };

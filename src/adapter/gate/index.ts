@@ -24,11 +24,14 @@ export class GateAdapter implements ExchangeAdapter {
 
 export const registerGateTools = (server: McpServer) => {
   const gateService = new GateAdapter();
-  server.tool("查询 Gate交易所 SDK 支持的方法", async () => {
+  server.tool("Query Gate Exchange SDK Supported Methods", async () => {
     return {
       content: [
         {
-          text: JSON.stringify(await gateService.listMethods()),
+          text: JSON.stringify({
+            available_methods: await gateService.listMethods(),
+            SDK_documentation: await gateService.getReadme(),
+          }),
           type: "text",
         },
       ],
@@ -36,10 +39,10 @@ export const registerGateTools = (server: McpServer) => {
   });
 
   server.tool(
-    "查询 Gate交易所 SDK 方法的使用信息",
+    "Query Gate Exchange SDK Method Usage Information",
     {
       method: z.string({
-        description: "查询的具体方法名称",
+        description: "The specific method name to query",
       }),
     },
     async ({ method }) => {
@@ -53,17 +56,6 @@ export const registerGateTools = (server: McpServer) => {
       };
     },
   );
-
-  server.tool("查询 Gate交易所 SDK 项目的 README", async () => {
-    return {
-      content: [
-        {
-          text: await gateService.getReadme(),
-          type: "text",
-        },
-      ],
-    };
-  });
 
   return server;
 };

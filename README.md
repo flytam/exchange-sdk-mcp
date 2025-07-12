@@ -1,6 +1,7 @@
 # Crypto Exchange SDK Documentation MCP
 
 [![npm version](https://img.shields.io/npm/v/crypto-exchange-mcp.svg)](https://www.npmjs.com/package/crypto-exchange-mcp)
+[![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/flytam/exchange-sdk-mcp/npm-publish.yml?label=publish)](https://github.com/your-username/exchange-sdk-mcp/actions/workflows/npm-publish.yml)
 
 [中文文档](./README-zh.md)
 
