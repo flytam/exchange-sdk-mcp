@@ -605,6 +605,7 @@ export const generateOfflineData = async () => {
         {
           doc: string;
           methodInfo: any;
+          endpoint?: string;
         }
       >;
       readme: string;
@@ -626,6 +627,7 @@ export const generateOfflineData = async () => {
       offlineData.methods[method] = {
         doc: endPointDocMap[key] || "",
         methodInfo: methodDtsInfoMap[method],
+        endpoint: `${httpMethod} ${endpoint}`,
       };
 
       if (hasDoc) {

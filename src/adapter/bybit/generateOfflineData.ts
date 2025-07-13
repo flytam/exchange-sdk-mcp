@@ -422,6 +422,8 @@ const __dirname = path.dirname(__filename);
 export const getEndPointDoc = async () => {
   console.log("Bybit: 开始从文档中提取API端点文档...");
   const result: Record<string, string> = {};
+  const endpointResult: Record<string, string> = {}; // 新增：存储以端点为键的结果
+  const methodToEndpointMap: Record<string, string> = {}; // 新增：方法名到端点的映射
   const docsDir = path.resolve(__dirname, "./bybit-docs/v5");
   console.log(`Bybit: 使用文档目录: ${docsDir}`);
 
@@ -442,35 +444,68 @@ export const getEndPointDoc = async () => {
     return files.flat();
   };
 
-  // 从文件内容中提取方法名和文档内容
-  const extractMethodInfo = (content: string): [string, string][] => {
-    const methodMatches: [string, string][] = [];
+  // 从文件内容中提取方法名、端点和文档内容
+  const extractMethodInfo = (
+    content: string,
+  ): [string, string, string | null][] => {
+    const methodMatches: [string, string, string | null][] = [];
 
-    // 查找 Node.js 代码示例中的方法调用
-    const nodeJsSection = content.match(
-      /<TabItem value="Node"[\s\S]*?```n4js[\s\S]*?```/i,
+    // 直接从文档中提取 HTTP 请求信息
+    // 匹配 HTTP 请求部分后面的 HTTP 方法和路径
+    // 支持多种格式：
+    // 1. ### HTTP請求\nGET `/v5/spread/execution/list`
+    // 2. ### HTTP請求\nPOST `/v5/order/create`
+    // 3. ### HTTP 請求\nGET `/v5/account/wallet-balance` (注意中间有空格)
+    const httpRequestSection = content.match(
+      /###\s*HTTP\s*請求[\s\n]*([A-Z]+)\s*[`'"]?(\/v5\/[\w\/\-]+)[`'"]?/i,
     );
-    if (nodeJsSection) {
-      const nodeJsCode = nodeJsSection[0];
 
-      // 检查是否包含 bybit-api
-      if (nodeJsCode.includes("bybit-api")) {
-        // 提取方法名，格式为 client.methodName(...)
-        const methodMatch = nodeJsCode.match(
-          /client\s*\.\s*([a-zA-Z0-9_]+)\s*\(/i,
-        );
-        if (methodMatch && methodMatch[1]) {
-          // 确保方法名是纯方法名，不包含任何前缀或后缀
-          let methodName = methodMatch[1].trim();
+    let endpointKey = null;
+    if (httpRequestSection) {
+      const httpMethod = httpRequestSection[1].toUpperCase();
+      const endpoint = httpRequestSection[2];
+      endpointKey = `${httpMethod} ${endpoint}`;
+    }
 
-          // 检查并移除可能的 `xxx =` 格式
-          const equalSignIndex = methodName.indexOf(" =");
-          if (equalSignIndex !== -1) {
-            methodName = methodName.substring(0, equalSignIndex).trim();
+    // 如果找到了端点信息，我们仍然尝试从 Node.js 代码示例中提取方法名
+    if (endpointKey) {
+      // 查找 Node.js 代码示例中的方法调用
+      const nodeJsSection = content.match(
+        /<TabItem value="Node"[\s\S]*?```n4js[\s\S]*?```/i,
+      );
+
+      if (nodeJsSection) {
+        const nodeJsCode = nodeJsSection[0];
+
+        // 检查是否包含 bybit-api
+        if (nodeJsCode.includes("bybit-api")) {
+          // 提取方法名，格式为 client.methodName(...)
+          const methodMatch = nodeJsCode.match(
+            /client\s*\.\s*([a-zA-Z0-9_]+)\s*\(/i,
+          );
+
+          if (methodMatch && methodMatch[1]) {
+            // 确保方法名是纯方法名，不包含任何前缀或后缀
+            let methodName = methodMatch[1].trim();
+
+            // 检查并移除可能的 `xxx =` 格式
+            const equalSignIndex = methodName.indexOf(" =");
+            if (equalSignIndex !== -1) {
+              methodName = methodName.substring(0, equalSignIndex).trim();
+            }
+
+            methodMatches.push([methodName, content, endpointKey]);
           }
-
-          methodMatches.push([methodName, content]);
         }
+      }
+
+      // 即使没有找到方法名，也添加端点信息到结果中
+      // 使用空字符串作为方法名占位符
+      if (methodMatches.length === 0 && endpointKey) {
+        methodMatches.push(["", content, endpointKey]);
+        console.log(
+          `Bybit: 从文档中提取到端点 ${endpointKey}，但未找到对应的方法名`,
+        );
       }
     }
 
@@ -484,6 +519,7 @@ export const getEndPointDoc = async () => {
 
     let processedFiles = 0;
     let extractedMethods = 0;
+    let extractedEndpoints = 0;
 
     // 处理每个文件
     for (const filePath of mdxFiles) {
@@ -499,9 +535,23 @@ export const getEndPointDoc = async () => {
         const methodInfos = extractMethodInfo(content);
 
         // 将提取的方法信息添加到结果中
-        for (const [methodName, docContent] of methodInfos) {
-          result[methodName] = docContent;
-          extractedMethods++;
+        for (const [methodName, docContent, endpointKey] of methodInfos) {
+          // 如果成功提取了端点信息，则添加到端点结果
+          if (endpointKey) {
+            endpointResult[endpointKey] = docContent;
+            extractedEndpoints++;
+
+            // 如果有方法名，则添加到方法结果和映射中
+            if (methodName) {
+              result[methodName] = docContent;
+              methodToEndpointMap[methodName] = endpointKey;
+              extractedMethods++;
+            }
+          } else if (methodName) {
+            // 如果只有方法名但没有端点信息，也添加到方法结果中
+            result[methodName] = docContent;
+            extractedMethods++;
+          }
         }
       } catch (error) {
         console.error(`Error processing file ${filePath}:`, error);
@@ -509,13 +559,15 @@ export const getEndPointDoc = async () => {
     }
 
     console.log(
-      `Bybit: 文档处理完成，共处理了 ${processedFiles} 个文件，提取了 ${extractedMethods} 个方法的文档`,
+      `Bybit: 文档处理完成，共处理了 ${processedFiles} 个文件，提取了 ${extractedMethods} 个方法的文档，${extractedEndpoints} 个端点的文档`,
     );
+
+    // 返回包含方法名和端点两种键的结果
+    return { methodResult: result, endpointResult, methodToEndpointMap };
   } catch (error) {
     console.error("Error reading docs directory:", error);
+    return { methodResult: {}, endpointResult: {}, methodToEndpointMap: {} };
   }
-
-  return result;
 };
 
 // 移除直接调用，因为这可能导致了问题
@@ -525,18 +577,31 @@ export const generateOfflineData = async () => {
   console.log("Bybit: 开始生成离线数据...");
   console.log("Bybit: 并行获取所有必要数据...");
 
-  const [methodEndpointMap, endPointDocMap, methodDtsInfoMap] =
+  // 获取所有必要数据
+  const [methodEndpointMap, docResults, methodDtsInfoMap, readme] =
     await Promise.all([
       getMethodEndpointMap(),
       getEndPointDoc(),
       extractMethodMapFromDts(),
+      getReadme(),
     ]);
+
+  // 解构 getEndPointDoc 返回的结果
+  const {
+    methodResult: methodDocMap,
+    endpointResult: endpointDocMap,
+    methodToEndpointMap,
+  } = docResults;
 
   console.log("Bybit: 所有数据获取完成，开始整合数据...");
   console.log(
     `Bybit: 方法端点映射: ${Object.keys(methodEndpointMap).length} 个方法`,
   );
-  console.log(`Bybit: 端点文档: ${Object.keys(endPointDocMap).length} 个文档`);
+  console.log(`Bybit: 方法文档: ${Object.keys(methodDocMap).length} 个文档`);
+  console.log(`Bybit: 端点文档: ${Object.keys(endpointDocMap).length} 个文档`);
+  console.log(
+    `Bybit: 方法到端点映射: ${Object.keys(methodToEndpointMap).length} 个映射`,
+  );
   console.log(
     `Bybit: 方法定义: ${Object.keys(methodDtsInfoMap).length} 个方法`,
   );
@@ -547,30 +612,48 @@ export const generateOfflineData = async () => {
       {
         doc: string;
         methodInfo: any;
+        endpoint?: string; // 新增：方法对应的端点
       }
     >;
+    endpoints: Record<string, string>; // 新增：以端点为键的文档
     readme: string;
     example: string[];
   } = {
     methods: {},
-    readme: readme,
+    endpoints: endpointDocMap, // 直接使用端点文档映射
+    readme,
     example: [],
   };
 
   let matchedDocs = 0;
   let missingDocs = 0;
+  let matchedEndpoints = 0;
 
   Object.keys(methodDtsInfoMap).forEach((method) => {
-    // const [httpMethod, endpoint] = methodEndpointMap[method];
-    // const key = `${httpMethod} ${endpoint}`;
-    const hasDoc = !!endPointDocMap[method];
+    // 获取方法对应的端点
+    let endpoint = "";
+
+    // 首先尝试从 methodToEndpointMap 中获取
+    if (methodToEndpointMap[method]) {
+      endpoint = methodToEndpointMap[method];
+      matchedEndpoints++;
+    }
+    // 如果没有，尝试从 methodEndpointMap 中获取
+    else if (methodEndpointMap[method]) {
+      const [httpMethod, endpointPath] = methodEndpointMap[method];
+      endpoint = `${httpMethod} ${endpointPath}`;
+      matchedEndpoints++;
+    }
+
+    const doc = methodDocMap[method] || endpointDocMap[endpoint];
 
     offlineData.methods[method] = {
-      doc: endPointDocMap[method] || "", // 使用方法名作为键，而不是 HTTP 方法和端点
+      doc: doc || "", // 使用方法文档
       methodInfo: methodDtsInfoMap[method],
+      endpoint: endpoint || undefined, // 添加端点信息
     };
 
-    if (hasDoc) {
+    if (Boolean(doc)) {
       matchedDocs++;
     } else {
       missingDocs++;
@@ -580,8 +663,12 @@ export const generateOfflineData = async () => {
   console.log(`Bybit: 数据整合完成:`);
   console.log(`Bybit: - 成功匹配文档的方法: ${matchedDocs} 个`);
   console.log(`Bybit: - 缺少文档的方法: ${missingDocs} 个`);
+  console.log(`Bybit: - 成功匹配端点的方法: ${matchedEndpoints} 个`);
   console.log(
     `Bybit: - 总方法数: ${Object.keys(offlineData.methods).length} 个`,
+  );
+  console.log(
+    `Bybit: - 总端点数: ${Object.keys(offlineData.endpoints).length} 个`,
   );
 
   return offlineData;
