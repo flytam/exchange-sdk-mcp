@@ -26,7 +26,7 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 | [Binance SDK](https://www.npmjs.com/package/binance) [Docs](https://developers.binance.com/en)              | ✅     |
 | [Bitget SDK](https://www.npmjs.com/package/bitget-api) [Docs](https://www.bitget.com/api-doc/common/intro)  | ✅     |
 | [OKX SDK](https://www.npmjs.com/package/okx-api) [Docs](https://www.okx.com/docs-v5/en/#overview)           | ✅     |
-| OKX DEX                                                                                                     | TODO   |
+| [OKX DEX](https://web3.okx.com/zh-hans/build/dev-docs/dex-api/dex-what-is-dex-api)                          | ✅     |
 
 ## Configuration
 

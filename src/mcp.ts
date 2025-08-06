@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { registerGateTools } from "./adapter/gate";
 import { registerBybitTools } from "./adapter/bybit";
 import { registerOkxTools } from "./adapter/okx";
+import { registerOkxDexTools } from "./adapter/okx-dex";
 import { registerBinanceTools } from "./adapter/binance";
 import { registerBitgetTools } from "./adapter/bitget";
 import packageJson from "../package.json";
@@ -13,7 +14,7 @@ const createMcpServer = () =>
   new McpServer({
     name: "crypto-exchange-mcp",
     description:
-      "Cryptocurrency Exchange SDK Documentation Service, providing API methods and documentation for Gate.io, Bybit, Binance, Bitget, OKX and other exchanges, with offline query support",
+      "Cryptocurrency Exchange Documentation Service, providing API methods and documentation",
     version: packageJson.version,
   });
 
@@ -41,6 +42,9 @@ export const startMcpServer = async (options: CommandOptions = {}) => {
 
     console.log("Registering OKX exchange tools...");
     registerOkxTools(server);
+
+    console.log("Registering OKX DEX API tools...");
+    registerOkxDexTools(server);
 
     console.log("Registering Binance exchange tools...");
     registerBinanceTools(server);

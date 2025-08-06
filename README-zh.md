@@ -26,7 +26,7 @@
 | [币安 SDK](https://www.npmjs.com/package/binance) [文档](https://developers.binance.com/en)                 | ✅   |
 | [Bitget SDK](https://www.npmjs.com/package/bitget-api) [文档](https://www.bitget.com/api-doc/common/intro)  | ✅   |
 | [OKX SDK](https://www.npmjs.com/package/okx-api) [文档](https://www.okx.com/docs-v5/en/#overview)           | ✅   |
-| OKX DEX                                                                                                     | TODO |
+| [OKX DEX](https://web3.okx.com/zh-hans/build/dev-docs/dex-api/dex-what-is-dex-api)                          | ✅   |
 
 ## 配置
 
