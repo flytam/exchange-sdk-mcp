@@ -19,14 +19,14 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 
 ## Currently Supported Exchanges
 
-| Exchange SDK                                                                                                | Status |
-| ----------------------------------------------------------------------------------------------------------- | ------ |
-| [Gate.io SDK](https://www.npmjs.com/package/gateio-api) [Docs](https://www.gate.com/docs/developers/apiv4)  | ✅     |
-| [Bybit SDK](https://www.npmjs.com/package/bybit-api) [Docs](https://bybit-exchange.github.io/docs/v5/intro) | ✅     |
-| [Binance SDK](https://www.npmjs.com/package/binance) [Docs](https://developers.binance.com/en)              | ✅     |
-| [Bitget SDK](https://www.npmjs.com/package/bitget-api) [Docs](https://www.bitget.com/api-doc/common/intro)  | ✅     |
-| [OKX SDK](https://www.npmjs.com/package/okx-api) [Docs](https://www.okx.com/docs-v5/en/#overview)           | ✅     |
-| [OKX DEX](https://web3.okx.com/zh-hans/build/dev-docs/dex-api/dex-what-is-dex-api)                          | ✅     |
+| Exchange SDK                                                                                                   | Status |
+| -------------------------------------------------------------------------------------------------------------- | ------ |
+| [Gate.io SDK](https://www.npmjs.com/package/gateio-api) [Docs](https://www.gate.com/docs/developers/apiv4)     | ✅     |
+| [Bybit SDK](https://www.npmjs.com/package/bybit-api) [Docs](https://bybit-exchange.github.io/docs/v5/intro)    | ✅     |
+| [Binance SDK](https://www.npmjs.com/package/binance) [Docs WIP](https://developers.binance.com/en)             | ✅     |
+| [Bitget SDK](https://www.npmjs.com/package/bitget-api) [Docs WIP](https://www.bitget.com/api-doc/common/intro) | ✅     |
+| [OKX SDK](https://www.npmjs.com/package/okx-api) [Docs](https://www.okx.com/docs-v5/en/#overview)              | ✅     |
+| [OKX DEX](https://web3.okx.com/zh-hans/build/dev-docs/dex-api/dex-what-is-dex-api)                             | ✅     |
 
 ## Configuration
 

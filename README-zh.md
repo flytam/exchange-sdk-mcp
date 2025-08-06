@@ -19,14 +19,14 @@
 
 ## 当前支持的交易所
 
-| 交易所 SDK                                                                                                  | 状态 |
-| ----------------------------------------------------------------------------------------------------------- | ---- |
-| [Gate.io SDK](https://www.npmjs.com/package/gateio-api) [文档](https://www.gate.com/docs/developers/apiv4)  | ✅   |
-| [Bybit SDK](https://www.npmjs.com/package/bybit-api) [文档](https://bybit-exchange.github.io/docs/v5/intro) | ✅   |
-| [币安 SDK](https://www.npmjs.com/package/binance) [文档](https://developers.binance.com/en)                 | ✅   |
-| [Bitget SDK](https://www.npmjs.com/package/bitget-api) [文档](https://www.bitget.com/api-doc/common/intro)  | ✅   |
-| [OKX SDK](https://www.npmjs.com/package/okx-api) [文档](https://www.okx.com/docs-v5/en/#overview)           | ✅   |
-| [OKX DEX](https://web3.okx.com/zh-hans/build/dev-docs/dex-api/dex-what-is-dex-api)                          | ✅   |
+| 交易所 SDK                                                                                                     | 状态 |
+| -------------------------------------------------------------------------------------------------------------- | ---- |
+| [Gate.io SDK](https://www.npmjs.com/package/gateio-api) [文档](https://www.gate.com/docs/developers/apiv4)     | ✅   |
+| [Bybit SDK](https://www.npmjs.com/package/bybit-api) [文档](https://bybit-exchange.github.io/docs/v5/intro)    | ✅   |
+| [币安 SDK](https://www.npmjs.com/package/binance) [文档 WIP](https://developers.binance.com/en)                | ✅   |
+| [Bitget SDK](https://www.npmjs.com/package/bitget-api) [文档 WIP](https://www.bitget.com/api-doc/common/intro) | ✅   |
+| [OKX SDK](https://www.npmjs.com/package/okx-api) [文档](https://www.okx.com/docs-v5/en/#overview)              | ✅   |
+| [OKX DEX](https://web3.okx.com/zh-hans/build/dev-docs/dex-api/dex-what-is-dex-api)                             | ✅   |
 
 ## 配置
 
