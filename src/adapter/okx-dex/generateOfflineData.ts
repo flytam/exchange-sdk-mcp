@@ -88,11 +88,14 @@ export const generateOfflineData = async () => {
           return;
         }
 
-        const methodName = h1Element.text().trim();
+        let methodName = h1Element.text().trim();
         if (!methodName) {
           console.warn(`OKX DEX: h1 标签内容为空: ${url}`);
           return;
         }
+
+        // 去掉方法名前后的 # 符号
+        methodName = methodName.replace(/^#+|#+$/g, "").trim();
 
         // 获取整个 doc-content 的内容作为文档
         const docContent = $element.html() || "";
