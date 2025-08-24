@@ -43,11 +43,37 @@
 
 ## 使用方法
 
-该MCP服务提供以下工具：
+该MCP服务为每个交易所提供以下工具：
 
-1. `查询 交易所 SDK 支持的方法` - 列出所有可用的交易所SDK方法
-2. `查询 交易所 SDK 方法的使用信息` - 获取特定方法的详细文档
-3. `查询 交易所 SDK 项目的 README` - 获取交易所SDK项目的README内容
+### Gate.io
+
+- `gate_methods` - 获取Gate.io Exchange SDK支持的所有API方法列表
+- `gate_method_detail` - 查询Gate.io Exchange SDK中特定方法的详细使用信息
+
+### OKX
+
+- `okx_methods` - 获取OKX Exchange SDK支持的所有API方法列表
+- `okx_method_detail` - 查询OKX Exchange SDK中特定方法的详细使用信息
+
+### OKX DEX
+
+- `okx_dex_api_methods` - 获取OKX DEX API支持的所有API方法列表
+- `okx_dex_api_method_detail` - 查询OKX DEX API中特定方法的详细使用信息
+
+### Bybit
+
+- `bybit_methods` - 获取Bybit Exchange SDK支持的所有API方法列表
+- `bybit_method_detail` - 查询Bybit Exchange SDK中特定方法的详细使用信息
+
+### Binance
+
+- `binance_methods` - 获取Binance Exchange SDK支持的所有API方法列表
+- `binance_method_detail` - 查询Binance Exchange SDK中特定方法的详细使用信息
+
+### Bitget
+
+- `bitget_methods` - 获取Bitget Exchange SDK支持的所有API方法列表
+- `bitget_method_detail` - 查询Bitget Exchange SDK中特定方法的详细使用信息
 
 ## 架构
 
@@ -66,17 +92,31 @@ pnpm install
 
 # 构建项目
 
+```
+
 pnpm run build
+
+```
 
 # 开发模式（监视文件变化）
 
+```
+
 pnpm run dev
+
+```
 
 # 使用MCP检查器测试
 
+```
+
 pnpm run inspect
 
+```
+
 # 生成交易所离线数据
+
+```
 
 pnpm run generateOfflineData
 
@@ -89,4 +129,3 @@ pnpm run generateOfflineData
 ## 许可证
 
 MIT
-```

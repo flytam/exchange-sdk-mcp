@@ -13,9 +13,9 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 - Retrieve detailed documentation for specific methods
 - **Offline documentation** - all documentation is available offline, no internet connection required
 
-<img width="400" height="200" alt="Image" src="https://github.com/user-attachments/assets/00fc3ea1-2d05-4fcd-ab60-1fa00cf3d87e" />
+<img width="400" height="200" alt="Image" src="https://github.com/user-attachments/assets/78bdddc3-ff50-404e-99f7-123d37df411c" />
 
-<img width="400" height="200" alt="Image" src="https://github.com/user-attachments/assets/3296b13d-f10b-471a-8cce-199ddfd0ec9c" />
+<img width="400" height="200" alt="Image" src="https://github.com/user-attachments/assets/f2b47d73-c788-4db6-8883-761a41a0cad9" />
 
 ## Currently Supported Exchanges
 
@@ -43,11 +43,37 @@ A Model Context Protocol (MCP) service designed to help developers easily access
 
 ## Usage
 
-This MCP service provides the following tools:
+This MCP service provides the following tools for each exchange:
 
-1. `Query Exchange SDK supported methods` - Lists all available methods for the exchange SDK
-2. `Query Exchange SDK method usage information` - Gets detailed documentation for a specific method
-3. `Query Exchange SDK README` - Gets the README content of the exchange SDK project
+### Gate.io
+
+- `gate_methods` - Get all API method lists and related documentation supported by Gate Exchange SDK
+- `gate_method_detail` - Query detailed usage information for specific API methods in Gate Exchange SDK
+
+### OKX
+
+- `okx_methods` - Get all API method lists and related documentation supported by OKX Exchange SDK
+- `okx_method_detail` - Query detailed usage information for specific API methods in OKX Exchange SDK
+
+### OKX DEX
+
+- `okx_dex_api_methods` - Get all API method lists and related documentation supported by OKX DEX API
+- `okx_dex_api_method_detail` - Query detailed usage information for specific API methods in OKX DEX API
+
+### Bybit
+
+- `bybit_methods` - Get all API method lists and related documentation supported by Bybit Exchange SDK
+- `bybit_method_detail` - Query detailed usage information for specific API methods in Bybit Exchange SDK
+
+### Binance
+
+- `binance_methods` - Get all API method lists and related documentation supported by Binance Exchange SDK
+- `binance_method_detail` - Query detailed usage information for specific API methods in Binance Exchange SDK
+
+### Bitget
+
+- `bitget_methods` - Get all API method lists and related documentation supported by Bitget Exchange SDK
+- `bitget_method_detail` - Query detailed usage information for specific API methods in Bitget Exchange SDK
 
 ## Architecture
 
@@ -66,18 +92,25 @@ pnpm install
 
 # Build the project
 
+```
 pnpm run build
+```
 
 # Development mode (watch for changes)
 
+```
 pnpm run dev
+```
 
 # Test with MCP inspector
 
+```
 pnpm run inspect
+```
 
 # Generate offline data for exchanges
 
+```
 pnpm run generateOfflineData
 
 ```
@@ -89,4 +122,3 @@ Contributions are welcome! If you'd like to add support for a new exchange, plea
 ## License
 
 MIT
-```
