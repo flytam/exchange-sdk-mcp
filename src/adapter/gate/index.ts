@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ExchangeAdapter } from "../interface";
 import data from "./gate-offlineData.json";
-import { z } from "zod";
+import { registerExchangeTools } from "../utils/registerTools";
 
 export class GateAdapter implements ExchangeAdapter {
   async listMethods() {
@@ -22,40 +22,8 @@ export class GateAdapter implements ExchangeAdapter {
   }
 }
 
+const gateAdapter = new GateAdapter();
+
 export const registerGateTools = (server: McpServer) => {
-  const gateService = new GateAdapter();
-  server.tool("Query Gate Exchange SDK Supported Methods", async () => {
-    return {
-      content: [
-        {
-          text: JSON.stringify({
-            available_methods: await gateService.listMethods(),
-            SDK_documentation: await gateService.getReadme(),
-          }),
-          type: "text",
-        },
-      ],
-    };
-  });
-
-  server.tool(
-    "Query Gate Exchange SDK Method Usage Information",
-    {
-      method: z.string({
-        description: "The specific method name to query",
-      }),
-    },
-    async ({ method }) => {
-      return {
-        content: [
-          {
-            text: JSON.stringify(await gateService.getDoc(method)),
-            type: "text",
-          },
-        ],
-      };
-    },
-  );
-
-  return server;
+  return registerExchangeTools(server, "Gate", gateAdapter);
 };

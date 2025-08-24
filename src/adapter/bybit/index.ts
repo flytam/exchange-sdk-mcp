@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ExchangeAdapter } from "../interface";
 import data from "./bybit-offlineData.json";
-import { z } from "zod";
+import { registerExchangeTools } from "../utils/registerTools";
 
 export class BybitAdapter implements ExchangeAdapter {
   async listMethods() {
@@ -31,40 +31,8 @@ export class BybitAdapter implements ExchangeAdapter {
   }
 }
 
+const bybitAdapter = new BybitAdapter();
+
 export const registerBybitTools = (server: McpServer) => {
-  const bybitService = new BybitAdapter();
-  server.tool("Query Bybit Exchange SDK Supported Methods", async () => {
-    return {
-      content: [
-        {
-          text: JSON.stringify({
-            available_methods: await bybitService.listMethods(),
-            SDK_documentation: await bybitService.getReadme(),
-          }),
-          type: "text",
-        },
-      ],
-    };
-  });
-
-  server.tool(
-    "Query Bybit Exchange SDK Method Usage Information",
-    {
-      method: z.string({
-        description: "The specific method name to query",
-      }),
-    },
-    async ({ method }) => {
-      return {
-        content: [
-          {
-            text: JSON.stringify(await bybitService.getDoc(method)),
-            type: "text",
-          },
-        ],
-      };
-    },
-  );
-
-  return server;
+  return registerExchangeTools(server, "Bybit", bybitAdapter);
 };

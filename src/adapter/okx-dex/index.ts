@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ExchangeAdapter } from "../interface";
 import data from "./okx-dex-offline-data.json";
-import { z } from "zod";
+import { registerExchangeTools } from "../utils/registerTools";
 
 export class OkxDexAdapter implements ExchangeAdapter {
   async listMethods() {
@@ -29,41 +29,8 @@ export class OkxDexAdapter implements ExchangeAdapter {
   }
 }
 
+const okxDexAdapter = new OkxDexAdapter();
+
 export const registerOkxDexTools = (server: McpServer) => {
-  const okxDexService = new OkxDexAdapter();
-
-  server.tool("Query OKX DEX API Supported Methods", async () => {
-    return {
-      content: [
-        {
-          text: JSON.stringify({
-            available_methods: await okxDexService.listMethods(),
-            SDK_documentation: await okxDexService.getReadme(),
-          }),
-          type: "text",
-        },
-      ],
-    };
-  });
-
-  server.tool(
-    "Query OKX DEX API Method Usage Information",
-    {
-      method: z.string({
-        description: "The specific method name to query",
-      }),
-    },
-    async ({ method }) => {
-      return {
-        content: [
-          {
-            text: JSON.stringify(await okxDexService.getDoc(method)),
-            type: "text",
-          },
-        ],
-      };
-    },
-  );
-
-  return server;
+  return registerExchangeTools(server, "OKX", okxDexAdapter, "DEX API");
 };

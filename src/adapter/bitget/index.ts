@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ExchangeAdapter } from "../interface";
 import data from "./bitget-offlineData.json";
-import { z } from "zod";
+import { registerExchangeTools } from "../utils/registerTools";
 
 export class BitgetAdapter implements ExchangeAdapter {
   async listMethods() {
@@ -24,38 +24,8 @@ export class BitgetAdapter implements ExchangeAdapter {
   }
 }
 
-export const registerBitgetTools = (server: McpServer) => {
-  const bitgetService = new BitgetAdapter();
-  server.tool("Query Bitget Exchange SDK Supported Methods", async () => {
-    return {
-      content: [
-        {
-          text: JSON.stringify({
-            available_methods: await bitgetService.listMethods(),
-            SDK_documentation: await bitgetService.getReadme(),
-          }),
-          type: "text",
-        },
-      ],
-    };
-  });
+const bitgetAdapter = new BitgetAdapter();
 
-  server.tool(
-    "Query Bitget Exchange SDK Method Usage Information",
-    {
-      method: z.string({
-        description: "The specific method name to query",
-      }),
-    },
-    async ({ method }) => {
-      return {
-        content: [
-          {
-            text: JSON.stringify(await bitgetService.getDoc(method)),
-            type: "text",
-          },
-        ],
-      };
-    },
-  );
+export const registerBitgetTools = (server: McpServer) => {
+  return registerExchangeTools(server, "Bitget", bitgetAdapter);
 };

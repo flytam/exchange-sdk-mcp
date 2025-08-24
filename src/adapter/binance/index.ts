@@ -1,7 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { ExchangeAdapter } from "../interface";
 import data from "./binance-offlineData.json";
-import { z } from "zod";
+import { registerExchangeTools } from "../utils/registerTools";
 
 export class BinanceAdapter implements ExchangeAdapter {
   async listMethods() {
@@ -31,40 +31,8 @@ export class BinanceAdapter implements ExchangeAdapter {
   }
 }
 
+const binanceAdapter = new BinanceAdapter();
+
 export const registerBinanceTools = (server: McpServer) => {
-  const binanceService = new BinanceAdapter();
-  server.tool("Query Binance Exchange SDK Supported Methods", async () => {
-    return {
-      content: [
-        {
-          text: JSON.stringify({
-            available_methods: await binanceService.listMethods(),
-            SDK_documentation: await binanceService.getReadme(),
-          }),
-          type: "text",
-        },
-      ],
-    };
-  });
-
-  server.tool(
-    "Query Binance Exchange SDK Method Usage Information",
-    {
-      method: z.string({
-        description: "The specific method name to query",
-      }),
-    },
-    async ({ method }) => {
-      return {
-        content: [
-          {
-            text: JSON.stringify(await binanceService.getDoc(method)),
-            type: "text",
-          },
-        ],
-      };
-    },
-  );
-
-  return server;
+  return registerExchangeTools(server, "Binance", binanceAdapter);
 };
