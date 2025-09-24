@@ -48,8 +48,8 @@ importers:
         specifier: ^4.1.13
         version: 4.1.13(typescript@5.0.4)
       gateio-api:
-        specifier: ^1.1.9
-        version: 1.1.9
+        specifier: ^1.2.9
+        version: 1.2.9
       okx-api:
         specifier: ^2.0.5
         version: 2.0.5(typescript@5.0.4)
@@ -1756,6 +1756,12 @@ packages:
         integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==,
       }
 
+  axios@1.12.2:
+    resolution:
+      {
+        integrity: sha512-vMJzPewAlRyOgxV2dU0Cuz2O8zzzx9VYtbJOaBgXFeLc4IV/Eg50n4LowmehOOR61S8ZMpc2K5Sa7g6A4jfkUw==,
+      }
+
   axios@1.9.0:
     resolution:
       {
@@ -2557,6 +2563,13 @@ packages:
       }
     engines: { node: ">= 6" }
 
+  form-data@4.0.4:
+    resolution:
+      {
+        integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==,
+      }
+    engines: { node: ">= 6" }
+
   forwarded@0.2.0:
     resolution:
       {
@@ -2592,10 +2605,10 @@ packages:
         integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==,
       }
 
-  gateio-api@1.1.9:
+  gateio-api@1.2.9:
     resolution:
       {
-        integrity: sha512-GHcMracQ7SErElh4BSTm430PyHf+26bOTguII9FOczHTp82/G0DPmHaM8uzJO+CyBlzYmvPZhzkzivq7NZMMgA==,
+        integrity: sha512-3lwobUBNDegx0RUDtJl1xqfLy2PQCgtYlF9cAwHS7JHXvu0CSTh2yZTKIEypNvsPaXJBeri9vcph+aid5QFspg==,
       }
 
   get-caller-file@2.0.5:
@@ -4433,6 +4446,21 @@ packages:
       utf-8-validate:
         optional: true
 
+  ws@8.18.3:
+    resolution:
+      {
+        integrity: sha512-PEIGCY5tSlUt50cqyMXfCzX+oOPqN0vuGqWzbcJ2xvnkzkq46oOpz7dQaTDBdfICb4N14+GARUDw2XV2N4tvzg==,
+      }
+    engines: { node: ">=10.0.0" }
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: ">=5.0.2"
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
   y18n@5.0.8:
     resolution:
       {
@@ -5470,6 +5498,14 @@ snapshots:
 
   asynckit@0.4.0: {}
 
+  axios@1.12.2:
+    dependencies:
+      follow-redirects: 1.15.9
+      form-data: 4.0.4
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+
   axios@1.9.0:
     dependencies:
       follow-redirects: 1.15.9
@@ -6030,6 +6066,14 @@ snapshots:
       es-set-tostringtag: 2.1.0
       mime-types: 2.1.18
 
+  form-data@4.0.4:
+    dependencies:
+      asynckit: 0.4.0
+      combined-stream: 1.0.8
+      es-set-tostringtag: 2.1.0
+      hasown: 2.0.2
+      mime-types: 2.1.35
+
   forwarded@0.2.0: {}
 
   fresh@2.0.0: {}
@@ -6045,11 +6089,11 @@ snapshots:
 
   function-bind@1.1.2: {}
 
-  gateio-api@1.1.9:
+  gateio-api@1.2.9:
     dependencies:
-      axios: 1.9.0
-      isomorphic-ws: 4.0.1(ws@8.18.2)
-      ws: 8.18.2
+      axios: 1.12.2
+      isomorphic-ws: 4.0.1(ws@8.18.3)
+      ws: 8.18.3
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -6193,9 +6237,9 @@ snapshots:
     dependencies:
       ws: 7.5.10
 
-  isomorphic-ws@4.0.1(ws@8.18.2):
+  isomorphic-ws@4.0.1(ws@8.18.3):
     dependencies:
-      ws: 8.18.2
+      ws: 8.18.3
 
   isomorphic-ws@5.0.0(ws@8.18.2):
     dependencies:
@@ -6288,8 +6332,7 @@ snapshots:
 
   mime-db@1.33.0: {}
 
-  mime-db@1.52.0:
-    optional: true
+  mime-db@1.52.0: {}
 
   mime-db@1.54.0: {}
 
@@ -6300,7 +6343,6 @@ snapshots:
   mime-types@2.1.35:
     dependencies:
       mime-db: 1.52.0
-    optional: true
 
   mime-types@3.0.1:
     dependencies:
@@ -7237,6 +7279,8 @@ snapshots:
   ws@7.5.10: {}
 
   ws@8.18.2: {}
+
+  ws@8.18.3: {}
 
   y18n@5.0.8: {}
 

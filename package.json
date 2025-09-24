@@ -1,6 +1,6 @@
 {
   "name": "crypto-exchange-mcp",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
@@ -42,7 +42,7 @@
     "binance": "^3.0.0",
     "bitget-api": "^2.3.5",
     "bybit-api": "^4.1.13",
-    "gateio-api": "^1.1.9",
+    "gateio-api": "^1.2.9",
     "okx-api": "^2.0.5",
     "prettier": "^3.5.3",
     "pretty-quick": "^4.2.2",
