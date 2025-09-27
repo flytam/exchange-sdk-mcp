@@ -45,7 +45,7 @@ const docList = [
 export const generateOfflineData = async () => {
   console.log("OKX DEX: 开始生成离线数据...");
 
-  const methods: Record<string, { doc: string }> = {};
+  const methodsMap: Record<string, { doc: string }> = {};
 
   // 创建 turndown 实例用于 HTML 转 Markdown
   const turndownService = new TurndownService({
@@ -106,12 +106,12 @@ export const generateOfflineData = async () => {
         // 生成唯一的方法名（如果重复，添加后缀）
         let uniqueMethodName = methodName;
         let counter = 1;
-        while (methods[uniqueMethodName]) {
+        while (methodsMap[uniqueMethodName]) {
           uniqueMethodName = `${methodName}_${counter}`;
           counter++;
         }
 
-        methods[uniqueMethodName] = {
+        methodsMap[uniqueMethodName] = {
           doc: markdownDoc.trim(),
         };
 
@@ -127,13 +127,22 @@ export const generateOfflineData = async () => {
     }
   }
 
+  // Convert methods object to array and sort by name
+  const methods = Object.keys(methodsMap)
+    .sort()
+    .map((methodName) => ({
+      name: methodName,
+      doc: methodsMap[methodName].doc,
+      methodInfo: {}, // OKX DEX doesn't have methodInfo, use empty object
+    }));
+
   const result = {
     methods,
+    readme: "", // OKX DEX doesn't have readme
+    example: [], // OKX DEX doesn't have examples
   };
 
-  console.log(
-    `OKX DEX: 数据抓取完成，共提取了 ${Object.keys(methods).length} 个方法`,
-  );
+  console.log(`OKX DEX: 数据抓取完成，共提取了 ${methods.length} 个方法`);
 
   // 输出到文件
   const outputPath = path.resolve(__dirname, "./okx-dex-offline-data.json");

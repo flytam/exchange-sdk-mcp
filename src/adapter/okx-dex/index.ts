@@ -3,29 +3,29 @@ import { ExchangeAdapter } from "../interface";
 import data from "./okx-dex-offline-data.json";
 import { registerExchangeTools } from "../utils/registerTools";
 
+interface MethodData {
+  name: string;
+  doc: string;
+  methodInfo: any;
+}
+
 export class OkxDexAdapter implements ExchangeAdapter {
   async listMethods() {
-    // 检查数据结构，如果有 methods 字段则使用，否则直接使用根级别的键
-    const methods = (data as any).methods || data;
-    return Object.keys(methods).map((k) => ({
-      method: k,
-      description: `OKX DEX API method: ${k}`,
+    return (data.methods as MethodData[]).map((methodData: MethodData) => ({
+      method: methodData.name,
+      description: `OKX DEX API method: ${methodData.name}`,
     }));
   }
 
   async getDoc(method: string) {
-    // 检查数据结构，如果有 methods 字段则使用，否则直接使用根级别的数据
-    const methods = (data as any).methods || data;
-    const methodData = methods[method as keyof typeof methods];
-    if (!methodData) {
-      throw new Error(`Method ${method} not found`);
-    }
-    return methodData;
+    const methodData = (data.methods as MethodData[]).find(
+      (m: MethodData) => m.name === method,
+    );
+    return methodData ? methodData.doc : "";
   }
 
   async getReadme(): Promise<string> {
-    const methods = (data as any).methods || data;
-    return `# OKX DEX API Documentation\n\nThis adapter provides access to OKX DEX API methods and documentation.\n\nAvailable methods: ${Object.keys(methods).length}`;
+    return `# OKX DEX API Documentation\n\nThis adapter provides access to OKX DEX API methods and documentation.\n\nAvailable methods: ${data.methods.length}`;
   }
 }
 

@@ -600,18 +600,16 @@ export const generateOfflineData = async () => {
     console.log("OKX: README 获取成功");
 
     const offlineData: {
-      methods: Record<
-        string,
-        {
-          doc: string;
-          methodInfo: any;
-          endpoint?: string;
-        }
-      >;
+      methods: Array<{
+        name: string;
+        doc: string;
+        methodInfo: any;
+        endpoint?: string;
+      }>;
       readme: string;
       example: string[];
     } = {
-      methods: {},
+      methods: [],
       readme: readme,
       example: [],
     };
@@ -619,23 +617,27 @@ export const generateOfflineData = async () => {
     let matchedDocs = 0;
     let missingDocs = 0;
 
-    Object.keys(methodEndpointMap).forEach((method) => {
-      const [httpMethod, endpoint] = methodEndpointMap[method];
-      const key = `${httpMethod} ${endpoint}`;
-      const hasDoc = !!endPointDocMap[key];
+    // Convert methods object to array and sort by name
+    offlineData.methods = Object.keys(methodEndpointMap)
+      .sort()
+      .map((method) => {
+        const [httpMethod, endpoint] = methodEndpointMap[method];
+        const key = `${httpMethod} ${endpoint}`;
+        const hasDoc = !!endPointDocMap[key];
 
-      offlineData.methods[method] = {
-        doc: endPointDocMap[key] || "",
-        methodInfo: methodDtsInfoMap[method],
-        endpoint: `${httpMethod} ${endpoint}`,
-      };
+        if (hasDoc) {
+          matchedDocs++;
+        } else {
+          missingDocs++;
+        }
 
-      if (hasDoc) {
-        matchedDocs++;
-      } else {
-        missingDocs++;
-      }
-    });
+        return {
+          name: method,
+          doc: endPointDocMap[key] || "",
+          methodInfo: methodDtsInfoMap[method],
+          endpoint: `${httpMethod} ${endpoint}`,
+        };
+      });
 
     console.log(`OKX: 数据整合完成:`);
     console.log(`OKX: - 成功匹配文档的方法: ${matchedDocs} 个`);

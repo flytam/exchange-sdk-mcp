@@ -607,19 +607,17 @@ export const generateOfflineData = async () => {
   );
 
   const offlineData: {
-    methods: Record<
-      string,
-      {
-        doc: string;
-        methodInfo: any;
-        endpoint?: string; // 新增：方法对应的端点
-      }
-    >;
+    methods: Array<{
+      name: string;
+      doc: string;
+      methodInfo: any;
+      endpoint?: string; // 新增：方法对应的端点
+    }>;
     endpoints: Record<string, string>; // 新增：以端点为键的文档
     readme: string;
     example: string[];
   } = {
-    methods: {},
+    methods: [],
     endpoints: endpointDocMap, // 直接使用端点文档映射
     readme,
     example: [],
@@ -629,36 +627,40 @@ export const generateOfflineData = async () => {
   let missingDocs = 0;
   let matchedEndpoints = 0;
 
-  Object.keys(methodDtsInfoMap).forEach((method) => {
-    // 获取方法对应的端点
-    let endpoint = "";
+  // Convert methods object to array and sort by name
+  offlineData.methods = Object.keys(methodDtsInfoMap)
+    .sort()
+    .map((method) => {
+      // 获取方法对应的端点
+      let endpoint = "";
 
-    // 首先尝试从 methodToEndpointMap 中获取
-    if (methodToEndpointMap[method]) {
-      endpoint = methodToEndpointMap[method];
-      matchedEndpoints++;
-    }
-    // 如果没有，尝试从 methodEndpointMap 中获取
-    else if (methodEndpointMap[method]) {
-      const [httpMethod, endpointPath] = methodEndpointMap[method];
-      endpoint = `${httpMethod} ${endpointPath}`;
-      matchedEndpoints++;
-    }
+      // 首先尝试从 methodToEndpointMap 中获取
+      if (methodToEndpointMap[method]) {
+        endpoint = methodToEndpointMap[method];
+        matchedEndpoints++;
+      }
+      // 如果没有，尝试从 methodEndpointMap 中获取
+      else if (methodEndpointMap[method]) {
+        const [httpMethod, endpointPath] = methodEndpointMap[method];
+        endpoint = `${httpMethod} ${endpointPath}`;
+        matchedEndpoints++;
+      }
 
-    const doc = methodDocMap[method] || endpointDocMap[endpoint];
+      const doc = methodDocMap[method] || endpointDocMap[endpoint];
 
-    offlineData.methods[method] = {
-      doc: doc || "", // 使用方法文档
-      methodInfo: methodDtsInfoMap[method],
-      endpoint: endpoint || undefined, // 添加端点信息
-    };
+      if (Boolean(doc)) {
+        matchedDocs++;
+      } else {
+        missingDocs++;
+      }
 
-    if (Boolean(doc)) {
-      matchedDocs++;
-    } else {
-      missingDocs++;
-    }
-  });
+      return {
+        name: method,
+        doc: doc || "", // 使用方法文档
+        methodInfo: methodDtsInfoMap[method],
+        endpoint: endpoint || undefined, // 添加端点信息
+      };
+    });
 
   console.log(`Bybit: 数据整合完成:`);
   console.log(`Bybit: - 成功匹配文档的方法: ${matchedDocs} 个`);

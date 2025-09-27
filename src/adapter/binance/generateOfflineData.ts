@@ -391,27 +391,27 @@ export const generateOfflineData = async () => {
     console.log("binance: README 获取成功");
 
     const offlineData: {
-      methods: Record<
-        string,
-        {
-          doc: string;
-          methodInfo: any;
-        }
-      >;
+      methods: Array<{
+        name: string;
+        doc: string;
+        methodInfo: any;
+      }>;
       readme: string;
       example: string[];
     } = {
-      methods: {},
+      methods: [],
       readme: readme,
       example: [],
     };
 
-    Object.keys(methodDtsInfoMap).forEach((method) => {
-      offlineData.methods[method] = {
+    // Convert methods object to array and sort by name
+    offlineData.methods = Object.keys(methodDtsInfoMap)
+      .sort()
+      .map((method) => ({
+        name: method,
         doc: "",
         methodInfo: methodDtsInfoMap[method],
-      };
-    });
+      }));
 
     console.log(`binance: 数据整合完成:`);
 

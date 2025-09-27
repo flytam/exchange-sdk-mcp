@@ -1,5 +1,5 @@
 export interface ExchangeAdapter {
-  getDoc(method: string): Promise<any>;
+  getDoc(method: string): Promise<string>;
   listMethods(): Promise<
     {
       method: string;

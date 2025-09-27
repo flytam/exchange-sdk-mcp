@@ -3,17 +3,25 @@ import { ExchangeAdapter } from "../interface";
 import data from "./okx-offlineData.json";
 import { registerExchangeTools } from "../utils/registerTools";
 
+interface MethodData {
+  name: string;
+  doc: string;
+  methodInfo: any;
+}
+
 export class OkxAdapter implements ExchangeAdapter {
   async listMethods() {
-    return Object.keys(data.methods).map((k) => ({
-      method: k,
-      description:
-        data.methods[k as keyof typeof data.methods]?.methodInfo?.methodComment,
+    return (data.methods as MethodData[]).map((methodData: MethodData) => ({
+      method: methodData.name,
+      description: methodData.methodInfo?.methodComment,
     }));
   }
 
   async getDoc(method: string) {
-    return data.methods[method as keyof typeof data.methods];
+    const methodData = (data.methods as MethodData[]).find(
+      (m: MethodData) => m.name === method,
+    );
+    return methodData ? methodData.doc : "";
   }
 
   async getReadme(): Promise<string> {

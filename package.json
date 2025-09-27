@@ -1,6 +1,6 @@
 {
   "name": "crypto-exchange-mcp",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
