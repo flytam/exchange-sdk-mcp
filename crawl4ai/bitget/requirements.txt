@@ -1,0 +1,5 @@
+crawl4ai>=0.7.0
+markdownify>=0.11.6
+asyncio
+pathlib
+urllib3

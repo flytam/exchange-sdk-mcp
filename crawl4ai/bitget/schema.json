@@ -1,0 +1,32 @@
+{
+  "name": "www.bitget.com Schema",
+  "baseSelector": ".container",
+  "fields": [
+    {
+      "name": "title",
+      "selector": "div.theme-doc-markdown.markdown > h1",
+      "type": "text"
+    },
+    {
+      "name": "description",
+      "selector": "div.theme-doc-markdown.markdown > p",
+      "type": "text"
+    },
+    {
+      "name": "http_path",
+      "selector": "div.theme-doc-markdown.markdown > ul > li:nth-of-type(1)",
+      "type": "text"
+    },
+    {
+      "name": "next_page",
+      "selector": "a.pagination-nav__link--next",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "name": "content",
+      "selector": "div.theme-doc-markdown.markdown",
+      "type": "text"
+    }
+  ]
+}
