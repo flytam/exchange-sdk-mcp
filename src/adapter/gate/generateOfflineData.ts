@@ -580,7 +580,7 @@ export const extractWsClientMethodMapFromDts = async (): Promise<
             });
           });
 
-          const prefixedMethodName = `websocketClient_${methodName}`;
+          const prefixedMethodName = `${methodName}`;
 
           resultMap[prefixedMethodName] = {
             className,
@@ -672,7 +672,7 @@ export const generateOfflineData = async () => {
         }
 
         return {
-          name: `restClient_${method}`,
+          name: `${method}`,
           doc: endPointDocMap[key] || "",
           methodInfo: methodDtsInfoMap[method],
           endpoint: `${httpMethod} ${endpoint}`,
@@ -684,7 +684,7 @@ export const generateOfflineData = async () => {
       ...Object.keys(wsClientMethodMap)
         .sort()
         .map((method) => ({
-          name: `wsClient_${method}`,
+          name: `${method}`,
           methodInfo: wsClientMethodMap[method],
           doc: "", // TODO:
         })),
