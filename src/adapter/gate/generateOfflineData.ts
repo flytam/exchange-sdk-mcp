@@ -61,10 +61,11 @@ export const getMethodEndpointMap = async () => {
 export const getEndPointDoc = async () => {
   // 获取当前文件的目录路径
   console.log("Gate: 开始从HTML文件中提取API端点文档...");
-  const htmlFilePath = path.resolve(__dirname, "./apiHtmlText.html");
+  // const htmlFilePath = path.resolve(__dirname, "./apiHtmlText.html");
 
   try {
-    const text = await readFile(htmlFilePath, "utf-8");
+    const text = await fetch(gateApiUrl).then((res) => res.text());
+    // const text = await readFile(htmlFilePath, "utf-8");
     console.log("Gate: 成功读取HTML文件");
 
     // 加载 HTML 到 cheerio
@@ -109,7 +110,6 @@ export const getEndPointDoc = async () => {
     console.log(`Gate: 成功从HTML文件中提取了 ${processedCount} 个API端点文档`);
     return result;
   } catch (error) {
-    console.error(`Gate: 无法读取HTML文件: ${htmlFilePath}`);
     console.error(
       `Gate: 请确保您已从Gate API文档网站(${gateApiUrl})下载HTML内容并保存到上述路径`,
     );
@@ -580,7 +580,7 @@ export const extractWsClientMethodMapFromDts = async (): Promise<
             });
           });
 
-          const prefixedMethodName = `websocketClient.${methodName}`;
+          const prefixedMethodName = `websocketClient_${methodName}`;
 
           resultMap[prefixedMethodName] = {
             className,
@@ -672,7 +672,7 @@ export const generateOfflineData = async () => {
         }
 
         return {
-          name: `restClient.${method}`,
+          name: `restClient_${method}`,
           doc: endPointDocMap[key] || "",
           methodInfo: methodDtsInfoMap[method],
           endpoint: `${httpMethod} ${endpoint}`,
@@ -684,7 +684,7 @@ export const generateOfflineData = async () => {
       ...Object.keys(wsClientMethodMap)
         .sort()
         .map((method) => ({
-          name: `wsClient.${method}`,
+          name: `wsClient_${method}`,
           methodInfo: wsClientMethodMap[method],
           doc: "", // TODO:
         })),
